@@ -1,4 +1,4 @@
-import { userLoginFx } from "@/api/user";
+import { loginSubmitted } from "./model";
 
 export const LoginPage = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -10,7 +10,10 @@ export const LoginPage = () => {
     if (!target.email.value || !target.password.value) {
       return;
     }
-    userLoginFx({ email: target.email.value, password: target.password.value });
+    loginSubmitted({
+      email: target.email.value,
+      password: target.password.value,
+    });
   };
 
   return (

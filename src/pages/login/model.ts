@@ -11,6 +11,7 @@ sample({
   clock: loginSubmitted,
   target: userLoginFx,
 });
+
 $user.on([userLoginFx.doneData, checkLogedInFx.doneData], (_, response) => {
   if (response?.status === 200) {
     return response.data;

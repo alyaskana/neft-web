@@ -1,4 +1,4 @@
-import { AxiosResponse, isAxiosError } from "axios";
+import { AxiosResponse } from "axios";
 import { createEffect } from "effector";
 import { fetcher } from "./base";
 
