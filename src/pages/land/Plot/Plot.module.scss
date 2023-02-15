@@ -1,12 +1,33 @@
 .plot {
-  height: 64px;
+  height: 320px;
   box-sizing: border-box;
   border: 1px solid #000;
   background-repeat: repeat;
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-auto-rows: 1fr;
+
+  &.unavailable {
+    background: rgb(7, 55, 99);
+  }
 }
-.available {
-  background-image: url("/src/assets/sprites/grass.png");
-}
-.unavailable {
-  background: rgb(7, 55, 99);
+
+.cell {
+  border: 1px dashed #000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.resource {
+    background-image: url("/src/assets/sprites/resource.png");
+  }
+  &.unavailable {
+    background-image: url("/src/assets/sprites/dirt.png");
+  }
+  &.available {
+    background-image: url("/src/assets/sprites/grass.png");
+  }
 }

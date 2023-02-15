@@ -1,3 +1,6 @@
+import { useStore } from "effector-react";
+
+import { $user } from "@/pages";
 import { Plot } from "../Plot/Plot";
 
 import s from "./Land.module.scss";
@@ -26,21 +29,21 @@ const buildSpiral = (size: number): number[][] => {
 };
 
 export const Land = () => {
-  const spiral = buildSpiral(16);
-  const plots = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+  const user = useStore($user);
+  const spiral = buildSpiral(10);
+
+  if (!user) return null;
 
   return (
     <div className={s.land}>
       {spiral.map((rowArray, rowId) => {
         return rowArray.map((id, colId) => {
-          const type = plots[id - 1] ? "available" : "unavailable";
           return (
             <Plot
-              key={id}
-              id={plots[id - 1]}
+              plot={user.plots[id - 1]}
+              key={`cell-${rowId}-${colId}`}
               column={colId + 1}
               row={rowId + 1}
-              type={type}
             />
           );
         });

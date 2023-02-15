@@ -1,5 +1,6 @@
 import { createEvent, createStore, sample } from "effector";
-import { User, LoginData, userLoginFx, checkLogedInFx } from "@/api/user";
+import { LoginData, userLoginFx, checkLogedInFx } from "@/api/user";
+import { User } from "@/types/user";
 
 export const $user = createStore<User | null>(null);
 export const $isLogged = $user.map((user) => user !== null);
