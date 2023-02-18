@@ -1,3 +1,3 @@
 export { LoginPage } from "./login/page";
-export { LandPage } from "./land/page";
+export { GamePage } from "./game/page";
 export { $user, loginPageMounted } from "./login/model";

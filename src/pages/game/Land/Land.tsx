@@ -1,7 +1,12 @@
+import { useEffect, useRef, useState } from "react";
 import { useStore } from "effector-react";
+import { Subscription } from "@rails/actioncable";
 
 import { $user } from "@/pages";
 import { Plot } from "../Plot/Plot";
+import { useActionCable } from "@/hooks/useActionCable";
+
+import { messageReceived, TMessage } from "./model";
 
 import s from "./Land.module.scss";
 
@@ -31,6 +36,33 @@ const buildSpiral = (size: number): number[][] => {
 export const Land = () => {
   const user = useStore($user);
   const spiral = buildSpiral(10);
+  const { consumer } = useActionCable();
+  const [gameChannel, setGameChannel] = useState<Subscription | null>(null);
+
+  useEffect(() => {
+    window.scrollTo(window.innerWidth / 2 - 240, window.innerHeight / 2 + 240);
+  }, []);
+
+  useEffect(() => {
+    let gameChannel: any = null;
+
+    gameChannel = consumer?.subscriptions.create(
+      {
+        channel: "GameChannel",
+      },
+      {
+        received: (data: TMessage) => {
+          messageReceived(data);
+        },
+      }
+    );
+
+    setGameChannel(gameChannel);
+
+    return () => {
+      gameChannel?.unsubscribe();
+    };
+  }, [consumer, user?.id]);
 
   if (!user) return null;
 
