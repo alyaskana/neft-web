@@ -1,7 +1,7 @@
 import { FC } from "react";
 import cn from "classnames";
 
-import { TPlot, TCell } from "@/types/plot";
+import { TPlot, TCell } from "@/types/game";
 
 import s from "./Plot.module.scss";
 

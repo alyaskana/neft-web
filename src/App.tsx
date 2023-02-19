@@ -1,27 +1,30 @@
 import { useEvent, useStore } from "effector-react";
 import { LoginPage, GamePage, $user } from "@/pages";
-import { loginPageMounted } from "@/pages";
+import { appMounted } from "@/pages";
 import { useEffect } from "react";
-// import { gameChannel } from "@/api/channels/game_channel";
+import { ActionCableProvider } from "@/hooks/useActionCable";
 
 function App() {
   const user = useStore($user);
-  const handlePageMount = useEvent(loginPageMounted);
+  const handleAppMount = useEvent(appMounted);
 
   useEffect(() => {
-    handlePageMount();
-    // gameChannel;
-  }, [handlePageMount]);
+    handleAppMount();
+  }, [handleAppMount]);
 
   return (
     <>
       <div className="App">
         {user ? (
           <>
-            <GamePage />
+            <ActionCableProvider>
+              <GamePage />
+            </ActionCableProvider>
           </>
         ) : (
-          <LoginPage />
+          <>
+            <LoginPage />
+          </>
         )}
       </div>
     </>

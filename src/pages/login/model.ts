@@ -1,12 +1,12 @@
 import { createEvent, createStore, sample } from "effector";
 import { LoginData, userLoginFx, checkLogedInFx } from "@/api/user";
-import { User } from "@/types/user";
+import { TUser } from "@/types/user";
 
-export const $user = createStore<User | null>(null);
+export const $user = createStore<TUser | null>(null);
 export const $isLogged = $user.map((user) => user !== null);
 
 export const loginSubmitted = createEvent<LoginData>();
-export const loginPageMounted = createEvent();
+export const appMounted = createEvent();
 
 sample({
   clock: loginSubmitted,
@@ -21,6 +21,6 @@ $user.on([userLoginFx.doneData, checkLogedInFx.doneData], (_, response) => {
 });
 
 sample({
-  clock: loginPageMounted,
+  clock: appMounted,
   target: checkLogedInFx,
 });
