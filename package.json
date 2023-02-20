@@ -17,13 +17,16 @@
     "effector-react": "^22.5.0",
     "qs": "^6.11.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-modal": "^3.16.1",
+    "react-tabs": "^6.0.0"
   },
   "devDependencies": {
     "@types/node": "^18.14.6",
     "@types/rails__actioncable": "^6.1.6",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
+    "@types/react-modal": "^3.13.1",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
     "@vitejs/plugin-react-swc": "^3.0.0",

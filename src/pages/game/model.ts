@@ -50,8 +50,18 @@ sample({
   target: fetchCurrentStateFx,
 });
 
-$seeds.watch(console.log);
-$plants.watch(console.log);
-$resources.watch(console.log);
-$plots.watch(console.log);
-$fishes.watch(console.log);
+$seeds.watch((data) => {
+  console.log("seeds: ", data);
+});
+$plants.watch((data) => {
+  console.log("plants: ", data);
+});
+$resources.watch((data) => {
+  console.log("resources: ", data);
+});
+$plots.watch((data) => {
+  console.log("plots: ", data);
+});
+$fishes.watch((data) => {
+  console.log("fishes: ", data);
+});

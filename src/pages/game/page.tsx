@@ -7,7 +7,7 @@ import { useActionCable } from "@/hooks/useActionCable";
 import { Land } from "./Land/Land";
 import { FishAvatar } from "./fishes";
 import { StashIcon } from "./stash";
-import { ShopIcon } from "./shop";
+import { Shop } from "./shop";
 import { MoneyLabel } from "./money";
 
 import { gamePageMounted } from "./model";
@@ -49,7 +49,7 @@ export const GamePage = () => {
         <FishAvatar />
         <MoneyLabel />
         <StashIcon />
-        <ShopIcon />
+        <Shop />
         <Land />
       </div>
     </div>

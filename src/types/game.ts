@@ -19,6 +19,7 @@ export type TFish = {
 };
 
 export type TPlant = {
+  id: number;
   name: string;
   image: string;
   price: number;
@@ -37,6 +38,7 @@ export type TResource = {
 };
 
 export type TSeed = {
+  id: number;
   user_id: number;
   name: string;
   price: number;
