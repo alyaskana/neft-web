@@ -46,3 +46,7 @@ export type TSeed = {
   created_at: string;
   updated_at: string;
 };
+
+export type TWallet = {
+  dsc: number;
+};

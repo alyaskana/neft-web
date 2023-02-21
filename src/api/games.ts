@@ -1,8 +1,7 @@
 import { AxiosResponse } from "axios";
 import { createEffect } from "effector";
 import { fetcher } from "./base";
-import { TUser } from "@/types/user";
-import { TPlant, TResource, TSeed, TFish, TPlot } from "@/types/game";
+import { TPlant, TResource, TSeed, TFish, TPlot, TWallet } from "@/types/game";
 
 type TGameState = {
   plants: TPlant[];
@@ -10,6 +9,7 @@ type TGameState = {
   seeds: TSeed[];
   fishes: TFish[];
   plots: TPlot[];
+  wallet: TWallet;
 };
 
 export const fetchCurrentStateFx = createEffect<
