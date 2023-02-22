@@ -50,3 +50,15 @@ export type TSeed = {
 export type TWallet = {
   dsc: number;
 };
+
+export type TSeedStockItem = {
+  id: number;
+  count: number;
+  seed: TSeed;
+};
+
+export type TCrop = {
+  id: number;
+  count: number;
+  plant: TPlant;
+};

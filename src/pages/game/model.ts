@@ -6,7 +6,16 @@ import {
   split,
 } from "effector";
 import { fetchCurrentStateFx } from "@/api/games";
-import { TPlant, TResource, TSeed, TFish, TPlot, TWallet } from "@/types/game";
+import {
+  TPlant,
+  TResource,
+  TSeed,
+  TFish,
+  TPlot,
+  TWallet,
+  TSeedStockItem,
+  TCrop,
+} from "@/types/game";
 
 export type TMessage = {
   type: "plantHasGrown";
@@ -19,6 +28,8 @@ export const $seeds = createStore<TSeed[]>([]);
 export const $plots = createStore<TPlot[]>([]);
 export const $fishes = createStore<TFish[]>([]);
 export const $wallet = createStore<TWallet>({ dsc: 0 });
+export const $seed_stock = createStore<TSeedStockItem[]>([]);
+export const $crops = createStore<TCrop[]>([]);
 
 export const gamePageMounted = createEvent();
 
@@ -46,6 +57,11 @@ $seeds.on(fetchCurrentStateFx.doneData, (_, { data: { seeds } }) => seeds);
 $plots.on(fetchCurrentStateFx.doneData, (_, { data: { plots } }) => plots);
 $fishes.on(fetchCurrentStateFx.doneData, (_, { data: { fishes } }) => fishes);
 $wallet.on(fetchCurrentStateFx.doneData, (_, { data: { wallet } }) => wallet);
+$seed_stock.on(
+  fetchCurrentStateFx.doneData,
+  (_, { data: { seed_stock } }) => seed_stock
+);
+$crops.on(fetchCurrentStateFx.doneData, (_, { data: { crops } }) => crops);
 
 sample({
   clock: gamePageMounted,
@@ -69,4 +85,10 @@ $fishes.watch((data) => {
 });
 $wallet.watch((data) => {
   console.log("wallet: ", data);
+});
+$seed_stock.watch((data) => {
+  console.log("seed_stock: ", data);
+});
+$crops.watch((data) => {
+  console.log("crops: ", data);
 });

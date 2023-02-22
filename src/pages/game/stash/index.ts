@@ -1,1 +1,1 @@
-export { StashIcon } from "./StashIcon/StashIcon";
+export { Stash } from "./Stash/Stash";
