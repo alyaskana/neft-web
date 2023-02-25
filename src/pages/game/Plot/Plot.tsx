@@ -19,9 +19,9 @@ const Cell: FC<TCellProps> = ({ cell }) => {
   return (
     <div
       className={cn(s.cell, {
-        [s.resource]: cell.land_type == "resource",
-        [s.unavailable]: cell.land_type == "unavailable",
-        [s.available]: cell.land_type == "available",
+        [s.stone]: cell.land_type == "stone",
+        [s.grass]: cell.land_type == "grass",
+        [s.garden_bed]: cell.land_type == "garden_bed",
       })}
     >
       {cell.id}

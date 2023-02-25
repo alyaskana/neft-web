@@ -1,7 +1,7 @@
 export type TCell = {
   id: string;
   is_taken: boolean;
-  land_type: "resource" | "unavailable" | "available";
+  land_type: "stone" | "grass" | "garden_bed";
   plant_type?: string;
 };
 

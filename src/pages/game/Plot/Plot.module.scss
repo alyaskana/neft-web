@@ -1,12 +1,12 @@
 .plot {
-  height: 240px;
+  height: 288px;
   box-sizing: border-box;
   border: 1px solid #000;
   background-repeat: repeat;
 
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
   grid-auto-rows: 1fr;
 
   &.unavailable {
@@ -21,13 +21,13 @@
   align-items: center;
   justify-content: center;
 
-  &.resource {
+  &.stone {
     background-image: url("/src/assets/sprites/resource.png");
   }
-  &.unavailable {
+  &.garden_bed {
     background-image: url("/src/assets/sprites/dirt.png");
   }
-  &.available {
+  &.grass {
     background-image: url("/src/assets/sprites/grass.png");
   }
 }
