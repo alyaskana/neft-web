@@ -19,7 +19,7 @@ type TGameState = {
   fishes: TFish[];
   plots: TPlot[];
   wallet: TWallet;
-  seed_stock: TSeedStock;
+  seed_stocks: TSeedStock[];
   crops: TCrop[];
 };
 

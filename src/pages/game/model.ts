@@ -5,6 +5,8 @@ import {
   createStore,
   split,
 } from "effector";
+import { Subscription } from "@rails/actioncable";
+
 import { fetchCurrentStateFx } from "@/api/games";
 import {
   TPlant,
@@ -13,14 +15,28 @@ import {
   TFish,
   TPlot,
   TWallet,
-  TSeedStockItem,
+  TSeedStock,
   TCrop,
 } from "@/types/game";
 
 export type TMessage = {
-  type: "plantHasGrown";
-  text: string;
+  type: "plantHasGrown" | "updatePlots" | "updateSeedStocks";
+  data: Record<string, unknown>;
 };
+
+type TUpdatePlotsMessage = TMessage & {
+  data: {
+    plots: TPlot[];
+  };
+};
+type TSeedStocksMessage = TMessage & {
+  data: {
+    seed_stocks: TSeedStock[];
+  };
+};
+
+export const $gameChannel = createStore<Subscription | null>(null);
+export const setGameChannel = createEvent<Subscription | null>();
 
 export const $plants = createStore<TPlant[]>([]);
 export const $resources = createStore<TResource[]>([]);
@@ -28,23 +44,38 @@ export const $seeds = createStore<TSeed[]>([]);
 export const $plots = createStore<TPlot[]>([]);
 export const $fishes = createStore<TFish[]>([]);
 export const $wallet = createStore<TWallet>({ dsc: 0 });
-export const $seed_stock = createStore<TSeedStockItem[]>([]);
+export const $seedStock = createStore<TSeedStock[]>([]);
 export const $crops = createStore<TCrop[]>([]);
+export const $activeSeedStock = $seedStock.map<TSeedStock>((state, lastState) =>
+  lastState == undefined ? state[state.length - 1] : lastState
+);
 
 export const gamePageMounted = createEvent();
-
 export const messageReceived = createEvent<TMessage>();
+export const clickSeedStock = createEvent<TSeedStock>();
 export const plantHasGrownFX = createEffect<TMessage, void>((msg) => {
   console.log("plantHasGrown message received :", msg);
 });
+export const updatePlotsFx = createEffect<
+  TUpdatePlotsMessage,
+  TUpdatePlotsMessage
+>((msg) => msg);
+export const updateSeedStocksFx = createEffect<
+  TSeedStocksMessage,
+  TSeedStocksMessage
+>((msg) => msg);
 
 split({
   source: messageReceived,
   match: {
     plantHasGrown: (msg) => msg.type === "plantHasGrown",
+    plotsUpdated: (msg) => msg.type === "updatePlots",
+    updateSeedStocks: (msg) => msg.type === "updateSeedStocks",
   },
   cases: {
     plantHasGrown: plantHasGrownFX,
+    plotsUpdated: updatePlotsFx,
+    updateSeedStocks: updateSeedStocksFx,
   },
 });
 
@@ -54,14 +85,19 @@ $resources.on(
   (_, { data: { resources } }) => resources
 );
 $seeds.on(fetchCurrentStateFx.doneData, (_, { data: { seeds } }) => seeds);
-$plots.on(fetchCurrentStateFx.doneData, (_, { data: { plots } }) => plots);
+$plots.on(
+  [fetchCurrentStateFx.doneData, updatePlotsFx.doneData],
+  (_, { data: { plots } }) => plots
+);
 $fishes.on(fetchCurrentStateFx.doneData, (_, { data: { fishes } }) => fishes);
 $wallet.on(fetchCurrentStateFx.doneData, (_, { data: { wallet } }) => wallet);
-$seed_stock.on(
-  fetchCurrentStateFx.doneData,
-  (_, { data: { seed_stock } }) => seed_stock
+$seedStock.on(
+  [fetchCurrentStateFx.doneData, updateSeedStocksFx.doneData],
+  (_, { data: { seed_stocks } }) => seed_stocks
 );
 $crops.on(fetchCurrentStateFx.doneData, (_, { data: { crops } }) => crops);
+$activeSeedStock.on(clickSeedStock, (_, seedStock) => seedStock);
+$gameChannel.on(setGameChannel, (_, channel) => channel);
 
 sample({
   clock: gamePageMounted,
@@ -86,9 +122,12 @@ $fishes.watch((data) => {
 $wallet.watch((data) => {
   console.log("wallet: ", data);
 });
-$seed_stock.watch((data) => {
-  console.log("seed_stock: ", data);
+$seedStock.watch((data) => {
+  console.log("seedStocks: ", data);
 });
 $crops.watch((data) => {
   console.log("crops: ", data);
+});
+$gameChannel.watch((data) => {
+  console.log("gameChannel: ", data);
 });

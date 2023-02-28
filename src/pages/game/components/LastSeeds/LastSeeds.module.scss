@@ -1,0 +1,21 @@
+.lastSeeds {
+  position: fixed;
+  right: 16px;
+  top: 200px;
+}
+
+.seedItem {
+  margin-bottom: 16px;
+  position: relative;
+
+  &.active {
+    border: 1px solid coral;
+  }
+
+  .seedItemCount {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+  }
+}

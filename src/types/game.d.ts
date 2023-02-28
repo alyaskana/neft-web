@@ -2,7 +2,7 @@ export type TCell = {
   id: string;
   is_taken: boolean;
   land_type: "stone" | "grass" | "garden_bed";
-  plant_type?: string;
+  growing_seed?: TGrowingSeed;
 };
 
 export type TPlot = {
@@ -43,6 +43,7 @@ export type TSeed = {
   name: string;
   price: number;
   image: string;
+  growing_image: string;
   created_at: string;
   updated_at: string;
 };
@@ -51,7 +52,7 @@ export type TWallet = {
   dsc: number;
 };
 
-export type TSeedStockItem = {
+export type TSeedStock = {
   id: number;
   count: number;
   seed: TSeed;
@@ -61,4 +62,10 @@ export type TCrop = {
   id: number;
   count: number;
   plant: TPlant;
+};
+export type TGrowingSeed = {
+  id: number;
+  created_at: number;
+  growing_time: number;
+  seed: TSeed;
 };

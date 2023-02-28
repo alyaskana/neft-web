@@ -3,14 +3,14 @@ import { useStore } from "effector-react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
 import { Modal, TModal } from "@/share/components";
-import { $seed_stock, $crops } from "@/pages/game/model";
+import { $seedStock, $crops } from "@/pages/game/model";
 
 import "react-tabs/style/react-tabs.css";
 
 type TStashModal = TModal;
 
 export const StashModal: FC<TStashModal> = (props) => {
-  const seed_stock = useStore($seed_stock);
+  const seedStock = useStore($seedStock);
   const crops = useStore($crops);
 
   return (
@@ -23,7 +23,7 @@ export const StashModal: FC<TStashModal> = (props) => {
 
         <TabPanel>
           <h2>Семена</h2>
-          {seed_stock.map((seedStockItem) => {
+          {seedStock.map((seedStockItem) => {
             return (
               <div key={seedStockItem.id}>
                 <img src={seedStockItem.seed.image} />

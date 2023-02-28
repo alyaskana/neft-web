@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
 import { useEvent } from "effector-react";
-import { Subscription } from "@rails/actioncable";
+import { setGameChannel } from "./model";
 
 import { useActionCable } from "@/hooks/useActionCable";
 
-import { Land } from "./Land/Land";
-import { FishAvatar } from "./fishes";
-import { Stash } from "./stash";
-import { Shop } from "./shop";
-import { MoneyLabel } from "./money";
-
+import {
+  Land,
+  FishAvatar,
+  Stash,
+  Shop,
+  MoneyLabel,
+  LastSeeds,
+} from "./components";
 import { gamePageMounted } from "./model";
 import { messageReceived, TMessage } from "./model";
 
 export const GamePage = () => {
   const handleGamePageMounted = useEvent(gamePageMounted);
   const { consumer } = useActionCable();
-  const [gameChannel, setGameChannel] = useState<Subscription | null>(null);
 
   useEffect(() => {
     handleGamePageMounted();
@@ -40,6 +41,7 @@ export const GamePage = () => {
 
     return () => {
       gameChannel?.unsubscribe();
+      setGameChannel(null);
     };
   }, [consumer]);
 
@@ -48,6 +50,7 @@ export const GamePage = () => {
       <div>
         <FishAvatar />
         <MoneyLabel />
+        <LastSeeds />
         <Stash />
         <Shop />
         <Land />
