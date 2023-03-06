@@ -67,5 +67,7 @@ export type TGrowingSeed = {
   id: number;
   created_at: number;
   growing_time: number;
+  final_grow_time: string;
+  stage: "growing" | "complete";
   seed: TSeed;
 };
