@@ -1,5 +1,5 @@
 export type TCell = {
-  id: string;
+  id: number;
   is_taken: boolean;
   land_type: "stone" | "grass" | "garden_bed";
   growing_seed?: TGrowingSeed;
@@ -63,6 +63,7 @@ export type TCrop = {
   count: number;
   plant: TPlant;
 };
+
 export type TGrowingSeed = {
   id: number;
   created_at: number;
