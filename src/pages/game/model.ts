@@ -11,7 +11,6 @@ import { fetchCurrentStateFx } from "@/api/games";
 import {
   TPlant,
   TResource,
-  TSeed,
   TFish,
   TPlot,
   TWallet,
@@ -40,7 +39,6 @@ export const setGameChannel = createEvent<Subscription | null>();
 
 export const $plants = createStore<TPlant[]>([]);
 export const $resources = createStore<TResource[]>([]);
-export const $seeds = createStore<TSeed[]>([]);
 export const $plots = createStore<TPlot[]>([]);
 export const $fishes = createStore<TFish[]>([]);
 export const $wallet = createStore<TWallet>({ dsc: 0 });
@@ -84,7 +82,6 @@ $resources.on(
   fetchCurrentStateFx.doneData,
   (_, { data: { resources } }) => resources
 );
-$seeds.on(fetchCurrentStateFx.doneData, (_, { data: { seeds } }) => seeds);
 $plots.on(
   [fetchCurrentStateFx.doneData, updatePlotsFx.doneData],
   (_, { data: { plots } }) => plots
@@ -104,9 +101,6 @@ sample({
   target: fetchCurrentStateFx,
 });
 
-$seeds.watch((data) => {
-  console.log("seeds: ", data);
-});
 $plants.watch((data) => {
   console.log("plants: ", data);
 });

@@ -26,8 +26,8 @@ export const StashModal: FC<TStashModal> = (props) => {
           {seedStock.map((seedStockItem) => {
             return (
               <div key={seedStockItem.id}>
-                <img src={seedStockItem.seed.image} />
-                <div>{seedStockItem.seed.name}</div>
+                <img src={seedStockItem.plant.image} />
+                <div>{seedStockItem.plant.name}</div>
                 <div>количество: {seedStockItem.count}</div>
                 <hr />
               </div>

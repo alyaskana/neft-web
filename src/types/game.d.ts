@@ -22,7 +22,10 @@ export type TPlant = {
   id: number;
   name: string;
   image: string;
+  seed_image: string;
+  growing_image: string;
   price: number;
+  seed_price: number;
   growing_time: number;
   created_at: string;
   updated_at: string;
@@ -37,17 +40,6 @@ export type TResource = {
   updated_at: string;
 };
 
-export type TSeed = {
-  id: number;
-  user_id: number;
-  name: string;
-  price: number;
-  image: string;
-  growing_image: string;
-  created_at: string;
-  updated_at: string;
-};
-
 export type TWallet = {
   dsc: number;
 };
@@ -55,7 +47,7 @@ export type TWallet = {
 export type TSeedStock = {
   id: number;
   count: number;
-  seed: TSeed;
+  plant: TPlant;
 };
 
 export type TCrop = {
@@ -70,5 +62,5 @@ export type TGrowingSeed = {
   growing_time: number;
   final_grow_time: string;
   stage: "growing" | "complete";
-  seed: TSeed;
+  plant: TPlant;
 };

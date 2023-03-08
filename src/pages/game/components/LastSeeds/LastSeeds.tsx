@@ -27,7 +27,7 @@ const SeedItem: FC<TseedItem> = ({ seedStockItem, active }) => {
       className={cn(s.seedItem, { [s.active]: active })}
       key={seedStockItem.id}
     >
-      <img src={seedStockItem.seed.image} width="40px" />
+      <img src={seedStockItem.plant.seed_image} width="40px" />
       <div className={s.seedItemCount}>{seedStockItem.count}</div>
     </div>
   );

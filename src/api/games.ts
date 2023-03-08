@@ -4,7 +4,6 @@ import { fetcher } from "./base";
 import {
   TPlant,
   TResource,
-  TSeed,
   TFish,
   TPlot,
   TWallet,
@@ -15,7 +14,6 @@ import {
 type TGameState = {
   plants: TPlant[];
   resources: TResource[];
-  seeds: TSeed[];
   fishes: TFish[];
   plots: TPlot[];
   wallet: TWallet;
