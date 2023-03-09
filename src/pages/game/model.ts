@@ -7,7 +7,7 @@ import {
 } from "effector";
 import { Subscription } from "@rails/actioncable";
 
-import { fetchCurrentStateFx } from "@/api/games";
+import { fetchCurrentStateFx, buySeedFx } from "@/api/games";
 import {
   TPlant,
   TResource,
@@ -87,9 +87,16 @@ $plots.on(
   (_, { data: { plots } }) => plots
 );
 $fishes.on(fetchCurrentStateFx.doneData, (_, { data: { fishes } }) => fishes);
-$wallet.on(fetchCurrentStateFx.doneData, (_, { data: { wallet } }) => wallet);
+$wallet.on(
+  [fetchCurrentStateFx.doneData, buySeedFx.doneData],
+  (_, { data: { wallet } }) => wallet
+);
 $seedStock.on(
-  [fetchCurrentStateFx.doneData, updateSeedStocksFx.doneData],
+  [
+    fetchCurrentStateFx.doneData,
+    updateSeedStocksFx.doneData,
+    buySeedFx.doneData,
+  ],
   (_, { data: { seed_stocks } }) => seed_stocks
 );
 $crops.on(fetchCurrentStateFx.doneData, (_, { data: { crops } }) => crops);

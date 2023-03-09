@@ -29,3 +29,18 @@ export const fetchCurrentStateFx = createEffect<
     path: "games/state",
   });
 });
+
+type TBuySeedResponse = {
+  seed_stocks: TSeedStock[];
+  wallet: TWallet;
+};
+
+export const buySeedFx = createEffect<
+  { plant_id: number },
+  AxiosResponse<TBuySeedResponse>
+>(async (params) => {
+  return await fetcher.post<TBuySeedResponse>({
+    path: "games/buy_seed",
+    params,
+  });
+});
