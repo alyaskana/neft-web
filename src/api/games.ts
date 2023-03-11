@@ -44,3 +44,15 @@ export const buySeedFx = createEffect<
     params,
   });
 });
+
+type TNewPlotResponse = {
+  plots: TPlot[];
+};
+
+export const newPlotFx = createEffect<void, AxiosResponse<TNewPlotResponse>>(
+  async () => {
+    return await fetcher.post<TNewPlotResponse>({
+      path: "games/new_plot",
+    });
+  }
+);

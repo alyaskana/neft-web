@@ -50,6 +50,7 @@ export const Land = () => {
               key={`cell-${rowId}-${colId}`}
               column={colId + 1}
               row={rowId + 1}
+              isNewPlot={plots.length + 1 === id}
             />
           );
         });
