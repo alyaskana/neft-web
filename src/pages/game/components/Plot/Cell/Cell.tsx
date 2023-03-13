@@ -7,7 +7,7 @@ import { $activeSeedStock } from "@/pages/game/model";
 import { secondFromNow } from "@/utils/secondFromNow";
 
 import s from "./Cell.module.scss";
-import { plantSeedFx } from "@/api/games";
+import { harvestingFx, plantSeedFx } from "@/api/games";
 
 type TCellProps = {
   cell: TCell;
@@ -37,6 +37,11 @@ export const Cell: FC<TCellProps> = ({ cell }) => {
   const handleClick = () => {
     if (cell.land_type == "garden_bed" && cell.growing_seed == undefined) {
       plantSeedFx({ cell_id: cell.id, seed_stock_id: activeSeedStock.id });
+    }
+    if (cell.land_type == "garden_bed" && cell.growing_seed) {
+      harvestingFx({
+        growing_seed_id: cell.growing_seed.id,
+      });
     }
   };
 

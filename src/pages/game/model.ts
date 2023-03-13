@@ -12,6 +12,7 @@ import {
   buySeedFx,
   newPlotFx,
   plantSeedFx,
+  harvestingFx,
 } from "@/api/games";
 import {
   TPlant,
@@ -93,6 +94,7 @@ $plots.on(
     updatePlotsFx.doneData,
     newPlotFx.doneData,
     plantSeedFx.doneData,
+    harvestingFx.doneData,
   ],
   (_, { data: { plots } }) => plots
 );
@@ -110,7 +112,10 @@ $seedStock.on(
   ],
   (_, { data: { seed_stocks } }) => seed_stocks
 );
-$crops.on(fetchCurrentStateFx.doneData, (_, { data: { crops } }) => crops);
+$crops.on(
+  [fetchCurrentStateFx.doneData, harvestingFx.doneData],
+  (_, { data: { crops } }) => crops
+);
 $activeSeedStock.on(clickSeedStock, (_, seedStock) => seedStock);
 $gameChannel.on(setGameChannel, (_, channel) => channel);
 

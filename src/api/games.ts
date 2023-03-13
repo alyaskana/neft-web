@@ -71,3 +71,18 @@ export const plantSeedFx = createEffect<
     params,
   });
 });
+
+type THarvestingResponse = {
+  plots: TPlot[];
+  crops: TCrop[];
+};
+
+export const harvestingFx = createEffect<
+  { growing_seed_id: number },
+  AxiosResponse<THarvestingResponse>
+>(async (params) => {
+  return await fetcher.post<THarvestingResponse>({
+    path: "games/harvesting",
+    params,
+  });
+});
