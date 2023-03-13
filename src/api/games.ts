@@ -56,3 +56,18 @@ export const newPlotFx = createEffect<void, AxiosResponse<TNewPlotResponse>>(
     });
   }
 );
+
+type TPlantSeedResponse = {
+  plots: TPlot[];
+  seed_stocks: TSeedStock[];
+};
+
+export const plantSeedFx = createEffect<
+  { cell_id: number; seed_stock_id: number },
+  AxiosResponse<TPlantSeedResponse>
+>(async (params) => {
+  return await fetcher.post<TPlantSeedResponse>({
+    path: "games/plant_seed",
+    params,
+  });
+});

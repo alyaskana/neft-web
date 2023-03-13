@@ -3,11 +3,11 @@ import { useStore } from "effector-react";
 import cn from "classnames";
 
 import { TCell } from "@/types/game";
-import { gameChanneRequestFx } from "@/api/cable";
 import { $activeSeedStock } from "@/pages/game/model";
 import { secondFromNow } from "@/utils/secondFromNow";
 
 import s from "./Cell.module.scss";
+import { plantSeedFx } from "@/api/games";
 
 type TCellProps = {
   cell: TCell;
@@ -35,12 +35,9 @@ export const Cell: FC<TCellProps> = ({ cell }) => {
   }, []);
 
   const handleClick = () => {
-    if (cell.land_type !== "garden_bed") return;
-
-    gameChanneRequestFx({
-      type: "plantSeed",
-      data: { cell_id: cell.id, seed_stock_id: activeSeedStock.id },
-    });
+    if (cell.land_type == "garden_bed" && cell.growing_seed == undefined) {
+      plantSeedFx({ cell_id: cell.id, seed_stock_id: activeSeedStock.id });
+    }
   };
 
   return (
