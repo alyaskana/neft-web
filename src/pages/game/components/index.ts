@@ -1,4 +1,4 @@
-export { FishAvatar } from "./fishes/FishAvatar/FishAvatar";
+export { Fish } from "./fishes/Fish/Fish";
 export { Land } from "./Land/Land";
 export { LastSeeds } from "./LastSeeds/LastSeeds";
 export { MoneyLabel } from "./money/MoneyLabel/MoneyLabel";

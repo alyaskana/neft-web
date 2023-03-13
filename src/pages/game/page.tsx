@@ -1,23 +1,17 @@
-import { useEffect, useState } from "react";
-import { useEvent } from "effector-react";
-import { setGameChannel } from "./model";
+import { useEffect } from "react";
+import { useEvent, useStore } from "effector-react";
+import { setGameChannel, $fishes } from "./model";
 
 import { useActionCable } from "@/hooks/useActionCable";
 
-import {
-  Land,
-  FishAvatar,
-  Stash,
-  Shop,
-  MoneyLabel,
-  LastSeeds,
-} from "./components";
+import { Land, Fish, Stash, Shop, MoneyLabel, LastSeeds } from "./components";
 import { gamePageMounted } from "./model";
 import { messageReceived, TMessage } from "./model";
 
 export const GamePage = () => {
   const handleGamePageMounted = useEvent(gamePageMounted);
   const { consumer } = useActionCable();
+  const fishes = useStore($fishes);
 
   useEffect(() => {
     handleGamePageMounted();
@@ -48,7 +42,9 @@ export const GamePage = () => {
   return (
     <div>
       <div>
-        <FishAvatar />
+        {fishes.map((fish) => (
+          <Fish fish={fish} key={fish.id} />
+        ))}
         <MoneyLabel />
         <LastSeeds />
         <Stash />
