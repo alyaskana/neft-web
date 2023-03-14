@@ -13,6 +13,7 @@ import {
   newPlotFx,
   plantSeedFx,
   harvestingFx,
+  eatCropFx,
 } from "@/api/games";
 import {
   TPlant,
@@ -98,7 +99,10 @@ $plots.on(
   ],
   (_, { data: { plots } }) => plots
 );
-$fishes.on(fetchCurrentStateFx.doneData, (_, { data: { fishes } }) => fishes);
+$fishes.on(
+  [fetchCurrentStateFx.doneData, eatCropFx.doneData],
+  (_, { data: { fishes } }) => fishes
+);
 $wallet.on(
   [fetchCurrentStateFx.doneData, buySeedFx.doneData],
   (_, { data: { wallet } }) => wallet
@@ -113,7 +117,7 @@ $seedStock.on(
   (_, { data: { seed_stocks } }) => seed_stocks
 );
 $crops.on(
-  [fetchCurrentStateFx.doneData, harvestingFx.doneData],
+  [fetchCurrentStateFx.doneData, harvestingFx.doneData, eatCropFx.doneData],
   (_, { data: { crops } }) => crops
 );
 $activeSeedStock.on(clickSeedStock, (_, seedStock) => seedStock);

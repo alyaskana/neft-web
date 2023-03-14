@@ -86,3 +86,18 @@ export const harvestingFx = createEffect<
     params,
   });
 });
+
+type TEatCropResponse = {
+  crops: TCrop[];
+  fishes: TFish[];
+};
+
+export const eatCropFx = createEffect<
+  { crop_id: number; fish_id: number },
+  AxiosResponse<TEatCropResponse>
+>(async (params) => {
+  return await fetcher.post<TEatCropResponse>({
+    path: "games/eat_crop",
+    params,
+  });
+});
