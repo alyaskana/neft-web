@@ -65,7 +65,6 @@ export const Cell: FC<TCellProps> = ({ cell }) => {
           <img className={s.seed} src={cell.growing_seed.plant.image} />
         </>
       )}
-      {cell.id}
     </div>
   );
 };

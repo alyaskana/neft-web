@@ -1,7 +1,6 @@
 .plot {
   height: 288px;
   box-sizing: border-box;
-  border: 1px solid #000;
   background-repeat: repeat;
 
   display: grid;
@@ -10,7 +9,8 @@
   grid-auto-rows: 1fr;
 
   &.unavailable {
-    background: rgb(7, 55, 99);
+    background-image: url("/src/assets/sprites/unavailable.png");
+    background-size: contain;
   }
 
   &.newPlot {

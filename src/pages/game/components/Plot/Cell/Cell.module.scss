@@ -1,10 +1,10 @@
 .cell {
-  border: 1px dashed #000;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  background-size: contain;
 
   &:hover {
     border: 3px solid coral;
