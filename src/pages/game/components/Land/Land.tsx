@@ -46,6 +46,10 @@ export const Land = () => {
         return rowArray.map((id, colId) => {
           return (
             <Plot
+              isBorderTop={spiral[rowId - 1]?.[colId] > plots.length}
+              isBorderBottom={spiral[rowId + 1]?.[colId] > plots.length}
+              isBorderLeft={spiral[rowId]?.[colId - 1] > plots.length}
+              isBorderRight={spiral[rowId]?.[colId + 1] > plots.length}
               plot={plots[id - 1]}
               key={`cell-${rowId}-${colId}`}
               column={colId + 1}

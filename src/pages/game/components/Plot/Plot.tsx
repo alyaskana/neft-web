@@ -12,6 +12,10 @@ type TPlotProps = {
   column: number;
   row: number;
   isNewPlot: boolean;
+  isBorderLeft: boolean;
+  isBorderRight: boolean;
+  isBorderTop: boolean;
+  isBorderBottom: boolean;
 };
 
 export const Plot: FC<TPlotProps> = ({
@@ -19,6 +23,10 @@ export const Plot: FC<TPlotProps> = ({
   row,
   plot,
   isNewPlot = false,
+  isBorderBottom,
+  isBorderLeft,
+  isBorderRight,
+  isBorderTop,
 }) => {
   const isUnavailable = plot == undefined;
 
@@ -26,6 +34,11 @@ export const Plot: FC<TPlotProps> = ({
     <div
       className={cn(s.plot, {
         [s.unavailable]: isUnavailable,
+        [s.available]: !isUnavailable,
+        [s.borderBottom]: isBorderBottom,
+        [s.borderLeft]: isBorderLeft,
+        [s.borderRight]: isBorderRight,
+        [s.borderTop]: isBorderTop,
         [s.newPlot]: isNewPlot,
       })}
       style={{ gridArea: `${row} / ${column} / auto / auto` }}
