@@ -1,5 +1,5 @@
 import { FC } from "react";
-import StashUrl from "/src/assets/sprites/stash.png";
+import StashUrl from "/src/assets/icons/stash.png";
 import s from "./StashIcon.module.scss";
 
 type TStashIcon = {

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import ShopUrl from "/src/assets/sprites/shop.png";
+import ShopUrl from "/src/assets/icons/market.png";
 import s from "./ShopIcon.module.scss";
 
 type TShopIcon = {
