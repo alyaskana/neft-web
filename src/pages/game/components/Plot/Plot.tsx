@@ -5,6 +5,8 @@ import { newPlotFx } from "@/api/games";
 import { TPlot } from "@/types/game";
 import { Cell } from "./Cell/Cell";
 
+import { ReactComponent as PlusIcon } from "@/assets/icons/plus.svg";
+
 import s from "./Plot.module.scss";
 
 type TPlotProps = {
@@ -45,7 +47,9 @@ export const Plot: FC<TPlotProps> = ({
     >
       {isNewPlot ? (
         <div className={s.newPlotContent} onClick={() => newPlotFx()}>
-          +
+          <div className={s.newPlotPlus}>
+            <PlusIcon />
+          </div>
         </div>
       ) : (
         plot?.cells.map((cell) => <Cell cell={cell} key={cell.id} />)
