@@ -22,9 +22,10 @@ export type TFish = {
 export type TPlant = {
   id: number;
   name: string;
+  description: string;
+  rarity: number;
   image: string;
   seed_image: string;
-  growing_image: string;
   price: number;
   seed_price: number;
   growing_time: number;

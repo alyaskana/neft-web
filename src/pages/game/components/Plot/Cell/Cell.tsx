@@ -56,7 +56,7 @@ export const Cell: FC<TCellProps> = ({ cell }) => {
     >
       {cell.growing_seed && cell.growing_seed.stage == "growing" && (
         <>
-          <img className={s.seed} src={cell.growing_seed.plant.growing_image} />
+          <img className={s.seed} src={cell.growing_seed.plant.image} />
           <div className={s.timer}>{growSeconds}</div>
         </>
       )}
