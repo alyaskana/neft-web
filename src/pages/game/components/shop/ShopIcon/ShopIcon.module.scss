@@ -1,6 +1,6 @@
 .shopIcon {
-  width: 80px;
-  height: 80px;
+  width: 64px;
+  height: 64px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,7 +15,7 @@
   box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.25);
 
   img {
-    width: 50px;
+    width: 32px;
     height: fit-content;
   }
 }

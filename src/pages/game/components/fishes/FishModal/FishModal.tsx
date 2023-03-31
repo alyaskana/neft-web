@@ -7,7 +7,6 @@ import { TFish, TCrop } from "@/types/game";
 import { eatCropFx } from "@/api/games";
 import { $crops } from "@/pages/game/model";
 
-import "react-tabs/style/react-tabs.css";
 import s from "./FishModal.module.scss";
 
 type TFishModal = TModal & {
@@ -29,7 +28,6 @@ export const FishModal: FC<TFishModal> = ({ fish, ...props }) => {
         </TabList>
 
         <TabPanel>
-          <h2>Статистика</h2>
           <div>
             <img src={fish.image} className={s.avatar} />
             <div>Уровень: {fish.level}</div>
@@ -37,15 +35,22 @@ export const FishModal: FC<TFishModal> = ({ fish, ...props }) => {
           </div>
         </TabPanel>
         <TabPanel>
-          <h2>Доступная еда</h2>
           {crops.map((crop) => {
             return (
-              <div key={crop.id}>
-                <img src={crop.plant.image} />
-                <div>{crop.plant.name}</div>
-                <div>количество: {crop.count}</div>
-                <button onClick={() => heandleEat(crop)}>Съесть</button>
-                <hr />
+              <div className={s.crop} key={crop.id}>
+                <div className={s.cropImage}>
+                  <img src={crop.plant.image} />
+                  <div className={s.cropsCount}>{crop.count}</div>
+                </div>
+                <div className={s.cropInfo}>
+                  <div className={s.cropName}>{crop.plant.name}</div>
+                  <button
+                    className={s.cropEat}
+                    onClick={() => heandleEat(crop)}
+                  >
+                    Съесть
+                  </button>
+                </div>
               </div>
             );
           })}
