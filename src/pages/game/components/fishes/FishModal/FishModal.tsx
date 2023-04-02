@@ -24,7 +24,7 @@ export const FishModal: FC<TFishModal> = ({ fish, ...props }) => {
       <Tabs>
         <TabList>
           <Tab>Статистика</Tab>
-          <Tab>Кормешка</Tab>
+          <Tab>Кормёжка</Tab>
         </TabList>
 
         <TabPanel>

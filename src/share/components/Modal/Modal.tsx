@@ -24,6 +24,7 @@ ReactModal.defaultStyles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    zIndex: 10000,
   },
   content: {
     position: "absolute",
