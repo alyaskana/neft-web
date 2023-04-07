@@ -1,8 +1,9 @@
 import { useEvent, useStore } from "effector-react";
-import { LoginPage, GamePage, $user } from "@/pages";
+import { WelcomePage, $user, LoginPage, GamePage } from "@/pages";
 import { appMounted } from "@/pages";
 import { useEffect } from "react";
-import { ActionCableProvider } from "@/hooks/useActionCable";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import ActionCableProvider from "./hooks/useActionCable";
 
 function App() {
   const user = useStore($user);
@@ -13,21 +14,26 @@ function App() {
   }, [handleAppMount]);
 
   return (
-    <>
-      <div className="App">
-        {user ? (
-          <>
-            <ActionCableProvider>
-              <GamePage />
-            </ActionCableProvider>
-          </>
-        ) : (
-          <>
-            <LoginPage />
-          </>
-        )}
-      </div>
-    </>
+    <div className="App">
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/game"
+          element={
+            <>
+              {user ? (
+                <ActionCableProvider>
+                  <GamePage />
+                </ActionCableProvider>
+              ) : (
+                <LoginPage />
+              )}
+            </>
+          }
+        />
+        <Route path="welcome" element={<WelcomePage />} />
+      </Routes>
+    </div>
   );
 }
 

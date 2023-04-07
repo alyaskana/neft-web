@@ -1,0 +1,20 @@
+.welcomePage {
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
+  padding-top: 200px;
+  box-sizing: border-box;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("/src/assets/backgrounds/auth.svg");
+}
+
+.textContent {
+  max-width: 390px;
+  text-align: center;
+  font-family: "Jeko";
+  font-size: 16px;
+  line-height: 20px;
+  color: #935a02;
+  margin-bottom: 6px;
+}

@@ -12,4 +12,13 @@
   appearance: none;
   border: none;
   cursor: pointer;
+
+  &.big {
+    width: 242px;
+  }
+}
+
+.link {
+  width: fit-content;
+  margin: 0 auto;
 }

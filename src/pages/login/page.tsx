@@ -1,10 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { loginSubmitted } from "./model";
-
 import { ModalBlock, TextInput, Form, Button, Title } from "@/share/components";
 
 import s from "./page.module.scss";
 
 export const LoginPage = () => {
+  const navigate = useNavigate();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const target = event.target as typeof event.target & {
@@ -18,6 +19,7 @@ export const LoginPage = () => {
       email: target.email.value,
       password: target.password.value,
     });
+    return navigate("/game");
   };
 
   return (
@@ -37,7 +39,7 @@ export const LoginPage = () => {
             defaultValue="12345678"
             placeholder="password"
           />
-          <Button type="submit">Войти</Button>
+          <Button type="submit">войти</Button>
         </Form>
       </ModalBlock>
     </div>
