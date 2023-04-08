@@ -20,6 +20,8 @@ type TStachItem = {
 };
 
 const StachItem: FC<TStachItem> = ({ item, active, onClick }) => {
+  const imgHref =
+    item.type == "crop" ? item.plant.image : item.plant.seed_image;
   return (
     <div
       className={cn(s.stashItem, { [s.active]: active })}
@@ -28,7 +30,7 @@ const StachItem: FC<TStachItem> = ({ item, active, onClick }) => {
       }}
     >
       <div className={s.stashItemImage}>
-        <img src={item.plant.seed_image} />
+        <img src={imgHref} />
         <div className={s.stashItemCount}>{item.count}</div>
       </div>
     </div>
@@ -74,7 +76,13 @@ export const StashModal: FC<TStashModal> = (props) => {
             <div className={s.rightPanel}>
               <div className={s.info}>
                 <div className={s.infoImage}>
-                  <img src={activeStashItem?.plant.seed_image} />
+                  <img
+                    src={
+                      activeStashItem?.type == "crop"
+                        ? activeStashItem?.plant.image
+                        : activeStashItem?.plant.seed_image
+                    }
+                  />
                 </div>
                 <div className={s.infoName}>{activeStashItem?.plant.name}</div>
                 <div className={s.infoDescription}>
