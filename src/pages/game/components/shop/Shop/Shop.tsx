@@ -8,7 +8,11 @@ export const Shop = () => {
   return (
     <>
       <ShopIcon onClick={() => setIsOpen(!isOpen)} />
-      <ShopModal isOpen={isOpen} onRequestClose={() => setIsOpen(false)} />
+      <ShopModal
+        isOpen={isOpen}
+        onRequestClose={() => setIsOpen(false)}
+        title="Рынок"
+      />
     </>
   );
 };

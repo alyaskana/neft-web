@@ -16,11 +16,6 @@ export const StashModal: FC<TStashModal> = (props) => {
   return (
     <Modal {...props}>
       <Tabs>
-        <TabList>
-          <Tab>Семена</Tab>
-          <Tab>Урожай</Tab>
-        </TabList>
-
         <TabPanel>
           <div className={s.seeds}>
             {seedStock.map((seedStockItem) => {

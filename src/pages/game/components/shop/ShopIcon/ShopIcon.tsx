@@ -1,5 +1,4 @@
 import { FC } from "react";
-import ShopUrl from "/src/assets/icons/market.png";
 import { ReactComponent as MarketIconSvg } from "/src/assets/icons/market.svg";
 
 import s from "./ShopIcon.module.scss";

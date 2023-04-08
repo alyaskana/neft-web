@@ -9,6 +9,7 @@ ReactModal.setAppElement("#root");
 
 export type TModal = {
   isOpen: boolean;
+  title: string;
   onAfterOpen?: () => void;
   onRequestClose?: () => void;
 };
@@ -20,7 +21,7 @@ ReactModal.defaultStyles = {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: "rgba(255, 255, 255, 0.75)",
+    backgroundColor: "rgba(24, 24, 24, 0.5)",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -28,13 +29,14 @@ ReactModal.defaultStyles = {
   },
   content: {
     position: "absolute",
-    background: "#FFBC55",
+    background: "#FFEFD6",
     overflow: "auto",
     WebkitOverflowScrolling: "touch",
     outline: "none",
-    padding: "10px",
-    width: "600px",
-    borderRadius: "20px",
+    padding: "16px",
+    width: "700px",
+    border: "7px solid #FAB140",
+    borderRadius: "24px",
   },
 };
 
@@ -42,6 +44,7 @@ export const Modal: FC<PropsWithChildren<TModal>> = ({
   isOpen,
   onAfterOpen,
   onRequestClose,
+  title,
   children,
 }) => {
   return (
@@ -51,12 +54,13 @@ export const Modal: FC<PropsWithChildren<TModal>> = ({
       onRequestClose={onRequestClose}
       preventScroll={true}
     >
-      <div>
+      <div className={s.header}>
+        <div className={s.title}>{title}</div>
         <div onClick={onRequestClose} className={s.close}>
           <CloseIcon />
         </div>
-        {children}
       </div>
+      <div>{children}</div>
     </ReactModal>
   );
 };

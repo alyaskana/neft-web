@@ -8,7 +8,11 @@ export const Stash = () => {
   return (
     <>
       <StashIcon onClick={() => setIsOpen(!isOpen)} />
-      <StashModal isOpen={isOpen} onRequestClose={() => setIsOpen(false)} />
+      <StashModal
+        isOpen={isOpen}
+        onRequestClose={() => setIsOpen(false)}
+        title="Инвентарь"
+      />
     </>
   );
 };
