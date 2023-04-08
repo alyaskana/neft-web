@@ -1,5 +1,5 @@
 import { FC } from "react";
-import StashUrl from "/src/assets/icons/stash.png";
+import { ReactComponent as StashIconSvg } from "/src/assets/icons/stash.svg";
 import s from "./StashIcon.module.scss";
 
 type TStashIcon = {
@@ -9,7 +9,7 @@ type TStashIcon = {
 export const StashIcon: FC<TStashIcon> = ({ onClick }) => {
   return (
     <div className={s.stashIcon} onClick={onClick}>
-      <img src={StashUrl} alt="Stash" />
+      <StashIconSvg />
     </div>
   );
 };
