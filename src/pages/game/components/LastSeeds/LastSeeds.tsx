@@ -3,7 +3,7 @@ import { useStore } from "effector-react";
 import cn from "classnames";
 
 import {
-  $seedStock,
+  $seedStocks,
   $activeSeedStock,
   clickSeedStock,
 } from "@/pages/game/model";
@@ -34,20 +34,18 @@ const SeedItem: FC<TseedItem> = ({ seedStockItem, active }) => {
 };
 
 export const LastSeeds: FC = () => {
-  const seedStock = useStore($seedStock);
+  const seedStocks = useStore($seedStocks);
   const activeSeedStock = useStore($activeSeedStock);
-
-  console.log(activeSeedStock);
 
   return (
     <div className={s.lastSeeds}>
-      {seedStock
-        .filter((seedStock) => seedStock.count > 0)
-        .map((seedStockItem) => (
+      {seedStocks
+        .filter((seedStocks) => seedStocks.count > 0)
+        .map((seedStock) => (
           <SeedItem
-            seedStockItem={seedStockItem}
-            key={seedStockItem.id}
-            active={activeSeedStock.id == seedStockItem.id}
+            seedStockItem={seedStock}
+            key={seedStock.id}
+            active={activeSeedStock.id == seedStock.id}
           />
         ))}
     </div>

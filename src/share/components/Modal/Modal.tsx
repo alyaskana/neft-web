@@ -33,10 +33,10 @@ ReactModal.defaultStyles = {
     overflow: "auto",
     WebkitOverflowScrolling: "touch",
     outline: "none",
-    padding: "16px",
-    width: "700px",
+    padding: "16px 22px 22px 22px",
     border: "7px solid #FAB140",
     borderRadius: "24px",
+    boxSizing: "border-box",
   },
 };
 

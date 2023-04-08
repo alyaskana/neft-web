@@ -9,8 +9,8 @@ type ProgressBarProps = {
 };
 
 export const ProgressBar: FC<ProgressBarProps> = ({ fish }) => {
-  const nextLevelXp = Math.pow(fish.level / 0.07, 2);
-  const currentLevelXp = Math.pow((fish.level - 1) / 0.07, 2);
+  const nextLevelXp = Math.pow(fish.level / 0.05, 2);
+  const currentLevelXp = Math.pow((fish.level - 1) / 0.05, 2);
   const levelDiffXp = nextLevelXp - currentLevelXp;
   const precent = ((fish.experience - currentLevelXp) / levelDiffXp) * 100;
 

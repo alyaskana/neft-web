@@ -1,10 +1,129 @@
-.seed {
+.stash {
   display: flex;
-  border-bottom: 1px solid #935a02;
-  padding: 10px 0;
+  gap: 12px;
+  height: 100%;
 }
 
-.seedImage {
+.leftPanel {
+  height: 100%;
+  background: #fff;
+  border-radius: 16px;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.info {
+  width: 212px;
+  box-sizing: border-box;
+  padding-bottom: 12px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  box-sizing: border-box;
+
+  .infoImage {
+    width: 152px;
+    padding: 16px;
+    background: #ececec;
+    border-radius: 24px;
+    box-sizing: border-box;
+    margin: 0 auto;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .infoName {
+    margin-top: 12px;
+    font-family: "Jeko";
+    font-size: 20px;
+    line-height: 25px;
+    text-align: center;
+  }
+
+  .infoDescription {
+    margin-top: 4px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .infoRarity {
+    margin-top: 12px;
+    font-family: "Jeko";
+    font-size: 10px;
+    line-height: 12px;
+    display: flex;
+    gap: 8px;
+    border-bottom: 1px solid #ececec;
+    padding-bottom: 12px;
+  }
+
+  .infoRarityItems {
+    display: flex;
+    gap: 4px;
+  }
+
+  .infoRarityItem {
+    width: 12px;
+    height: 12px;
+    background: #d9d9d9;
+    border-radius: 50%;
+
+    &.active {
+      background: #fab140;
+    }
+  }
+}
+
+.stashItems {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-flow: rows;
+  max-width: 432px;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+.stashItem {
+  display: flex;
+  width: 72px;
+  height: 72px;
+  background: #ececec;
+  border-radius: 16px;
+  box-sizing: border-box;
+
+  &.active {
+    border: 2px dashed #5c5c5c;
+  }
+}
+
+.specifications {
+  display: flex;
+  margin-top: 12px;
+  gap: 8px;
+
+  .specificationsItem {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.25));
+    }
+  }
+
+  .specificationsItemText {
+    font-family: "Jeko";
+    font-size: 10px;
+    line-height: 12px;
+    padding-top: 2px;
+  }
+}
+
+.stashItemImage {
   width: 80px;
   position: relative;
 
@@ -13,22 +132,25 @@
   }
 }
 
-.seedsCount {
+.stashItemCount {
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 24px;
-  height: 24px;
+  left: -3px;
+  bottom: -5px;
+  width: 20px;
+  height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f6efe5;
   border-radius: 50%;
-  border: 4px solid #fff;
-  box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.25);
+  background: #ffffff;
+  border: 2px solid #838383;
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.25);
+  font-family: "Jeko", sans-serif;
+  font-size: 9px;
+  padding-top: 1px;
 }
 
-.seedInfo {
+.stashInfo {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -36,6 +158,6 @@
   margin-left: 16px;
 }
 
-.seedName {
+.stashName {
   font-weight: bold;
 }

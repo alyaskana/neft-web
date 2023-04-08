@@ -4,6 +4,7 @@ import {
   sample,
   createStore,
   split,
+  combine,
 } from "effector";
 import { Subscription } from "@rails/actioncable";
 
@@ -49,19 +50,31 @@ export const $resources = createStore<TResource[]>([]);
 export const $plots = createStore<TPlot[]>([]);
 export const $fishes = createStore<TFish[]>([]);
 export const $wallet = createStore<TWallet>({ dsc: 0 });
-export const $seedStock = createStore<TSeedStock[]>([]);
+export const $seedStocks = createStore<TSeedStock[]>([]);
 export const $crops = createStore<TCrop[]>([]);
-export const $activeSeedStock = $seedStock.map<TSeedStock>((state, lastState) =>
-  lastState == undefined
-    ? state.filter((seedStock) => seedStock.count > 0).pop()!
-    : lastState
+export const $stash = combine($seedStocks, $crops, (seedStocks, crops) => {
+  const filteredSeedStocks = seedStocks.filter(
+    (seedStock) => seedStock.count > 0
+  );
+  const filteredCrops = crops.filter((crop) => crop.count > 0);
+  return {
+    seedStocks: filteredSeedStocks,
+    crops: filteredCrops,
+  };
+});
+
+export const $activeSeedStock = $seedStocks.map<TSeedStock>(
+  (state, lastState) =>
+    lastState == undefined
+      ? state.filter((seedStock) => seedStock.count > 0).pop()!
+      : lastState
 );
 
 export const gamePageMounted = createEvent();
 export const messageReceived = createEvent<TMessage>();
 export const clickSeedStock = createEvent<TSeedStock>();
 export const plantHasGrownFX = createEffect<TMessage, void>((msg) => {
-  console.log("plantHasGrown message received :", msg);
+  console.log("$plantHasGrown message received :", msg);
 });
 export const updatePlotsFx = createEffect<
   TUpdatePlotsMessage,
@@ -109,7 +122,7 @@ $wallet.on(
   [fetchCurrentStateFx.doneData, buySeedFx.doneData],
   (_, { data: { wallet } }) => wallet
 );
-$seedStock.on(
+$seedStocks.on(
   [
     fetchCurrentStateFx.doneData,
     updateSeedStocksFx.doneData,
@@ -131,26 +144,29 @@ sample({
 });
 
 $plants.watch((data) => {
-  console.log("plants: ", data);
+  console.log("$plants: ", data);
 });
 $resources.watch((data) => {
-  console.log("resources: ", data);
+  console.log("$resources: ", data);
 });
 $plots.watch((data) => {
-  console.log("plots: ", data);
+  console.log("$plots: ", data);
 });
 $fishes.watch((data) => {
-  console.log("fishes: ", data);
+  console.log("$fishes: ", data);
 });
 $wallet.watch((data) => {
-  console.log("wallet: ", data);
+  console.log("$wallet: ", data);
 });
-$seedStock.watch((data) => {
-  console.log("seedStocks: ", data);
+$seedStocks.watch((data) => {
+  console.log("$seedStocks: ", data);
 });
 $crops.watch((data) => {
-  console.log("crops: ", data);
+  console.log("$crops: ", data);
 });
 $gameChannel.watch((data) => {
-  console.log("gameChannel: ", data);
+  console.log("$gameChannel: ", data);
+});
+$stash.watch((data) => {
+  console.log("$stash: ", data);
 });

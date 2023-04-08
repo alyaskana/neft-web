@@ -50,12 +50,14 @@ export type TSeedStock = {
   id: number;
   count: number;
   plant: TPlant;
+  type: "seed_stock";
 };
 
 export type TCrop = {
   id: number;
   count: number;
   plant: TPlant;
+  type: "crop";
 };
 
 export type TGrowingSeed = {
