@@ -9,10 +9,15 @@ type ProgressBarProps = {
 };
 
 export const ProgressBar: FC<ProgressBarProps> = ({ fish }) => {
+  const nextLevelXp = Math.pow(fish.level / 0.07, 2);
+  const currentLevelXp = Math.pow((fish.level - 1) / 0.07, 2);
+  const levelDiffXp = nextLevelXp - currentLevelXp;
+  const precent = ((fish.experience - currentLevelXp) / levelDiffXp) * 100;
+
   return (
     <div style={{ width: 37, height: 37 }}>
       <CircularProgressbar
-        value={60}
+        value={precent}
         text={String(fish.level)}
         background
         styles={{
