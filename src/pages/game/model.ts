@@ -52,7 +52,9 @@ export const $wallet = createStore<TWallet>({ dsc: 0 });
 export const $seedStock = createStore<TSeedStock[]>([]);
 export const $crops = createStore<TCrop[]>([]);
 export const $activeSeedStock = $seedStock.map<TSeedStock>((state, lastState) =>
-  lastState == undefined ? state[state.length - 1] : lastState
+  lastState == undefined
+    ? state.filter((seedStock) => seedStock.count > 0).pop()!
+    : lastState
 );
 
 export const gamePageMounted = createEvent();

@@ -36,17 +36,20 @@ const SeedItem: FC<TseedItem> = ({ seedStockItem, active }) => {
 export const LastSeeds: FC = () => {
   const seedStock = useStore($seedStock);
   const activeSeedStock = useStore($activeSeedStock);
-  console.log("activeSeedStock", activeSeedStock);
+
+  console.log(activeSeedStock);
 
   return (
     <div className={s.lastSeeds}>
-      {seedStock.slice(0, 3).map((seedStockItem) => (
-        <SeedItem
-          seedStockItem={seedStockItem}
-          key={seedStockItem.id}
-          active={activeSeedStock.id == seedStockItem.id}
-        />
-      ))}
+      {seedStock
+        .filter((seedStock) => seedStock.count > 0)
+        .map((seedStockItem) => (
+          <SeedItem
+            seedStockItem={seedStockItem}
+            key={seedStockItem.id}
+            active={activeSeedStock.id == seedStockItem.id}
+          />
+        ))}
     </div>
   );
 };
