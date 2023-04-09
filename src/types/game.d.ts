@@ -15,6 +15,7 @@ export type TFish = {
   level: number;
   experience: number;
   image: string;
+  is_active: boolean;
   created_at: string;
   updated_at: string;
 };

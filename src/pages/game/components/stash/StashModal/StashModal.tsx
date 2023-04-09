@@ -9,16 +9,19 @@ import {
   MiniCard,
   Modal,
   TModal,
+  Button,
 } from "@/share/components";
-import { $stash } from "@/pages/game/model";
+import { $stash, $activeFish } from "@/pages/game/model";
 import { TCrop, TSeedStock, TStash } from "@/types/game";
 
 import s from "./StashModal.module.scss";
+import { eatCropFx } from "@/api/games";
 
 type TStashModal = TModal;
 
 export const StashModal: FC<TStashModal> = (props) => {
   const stash = useStore($stash);
+  const activeFish = useStore($activeFish);
   const [activeStashItem, setActiveStashItem] = useState<TSeedStock | TCrop>(
     stash.seedStocks[0] || stash.crops[0]
   );
@@ -29,6 +32,10 @@ export const StashModal: FC<TStashModal> = (props) => {
       : stash.seedStocks[0] || stash.crops[0];
     setActiveStashItem(activeItem);
   }, [stash]);
+
+  const heandleEat = (crop: TCrop) => {
+    eatCropFx({ crop_id: crop.id, fish_id: activeFish.id });
+  };
 
   return (
     <Modal {...props}>
@@ -56,14 +63,23 @@ export const StashModal: FC<TStashModal> = (props) => {
           </LeftPanel>
           <RightPanel>
             {activeStashItem && activeStashItem.type == "crop" && (
-              <Card
-                image={activeStashItem.plant.image}
-                name={activeStashItem.plant.name}
-                description={activeStashItem.plant.description}
-                rarity={activeStashItem.plant.rarity}
-                sellingPrice={activeStashItem.plant.price}
-                experience={activeStashItem.plant.experience}
-              />
+              <>
+                <Card
+                  image={activeStashItem.plant.image}
+                  name={activeStashItem.plant.name}
+                  description={activeStashItem.plant.description}
+                  rarity={activeStashItem.plant.rarity}
+                  sellingPrice={activeStashItem.plant.price}
+                  experience={activeStashItem.plant.experience}
+                />
+                <Button
+                  onClick={() => {
+                    heandleEat(activeStashItem);
+                  }}
+                >
+                  съесть
+                </Button>
+              </>
             )}
             {activeStashItem && activeStashItem.type == "seed_stock" && (
               <Card

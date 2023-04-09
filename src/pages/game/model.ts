@@ -50,6 +50,9 @@ export const $plants = createStore<TPlant[]>([]);
 export const $resources = createStore<TResource[]>([]);
 export const $plots = createStore<TPlot[]>([]);
 export const $fishes = createStore<TFish[]>([]);
+export const $activeFish = $fishes.map<TFish>(
+  (state) => state.find((fish) => fish.is_active) || state[0]
+);
 export const $wallet = createStore<TWallet>({ dsc: 0 });
 export const $seedStocks = createStore<TSeedStock[]>([]);
 export const $crops = createStore<TCrop[]>([]);
