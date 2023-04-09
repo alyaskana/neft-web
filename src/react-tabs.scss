@@ -47,10 +47,12 @@
     background: #ffefd6;
     border-radius: 8px;
     overflow: auto;
-    height: 390px;
+    min-height: 390px;
+    border-radius: 16px;
 
     &--selected {
-      display: block;
+      display: flex;
+      gap: 12px;
     }
   }
 

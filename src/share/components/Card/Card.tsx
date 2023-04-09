@@ -6,26 +6,35 @@ import { ReactComponent as TimeIcon } from "@/assets/icons/time.svg";
 import { ReactComponent as ArrowUpIcon } from "@/assets/icons/arrow-up.svg";
 
 import s from "./Card.module.scss";
-import { TCrop, TSeedStock } from "@/types/game";
 
 type TCardProps = {
-  item?: TSeedStock | TCrop;
+  image: string;
+  name: string;
+  description: string;
+  rarity: number;
+  seedPrice?: number;
+  growingTime?: number;
+  experience?: number;
+  sellingPrice?: number;
 };
 
-export const Card: FC<TCardProps> = ({ item }) => {
-  if (!item) return null;
-
+export const Card: FC<TCardProps> = ({
+  image,
+  name,
+  description,
+  rarity,
+  seedPrice,
+  growingTime,
+  experience,
+  sellingPrice,
+}) => {
   return (
     <div className={s.card}>
       <div className={s.cardImage}>
-        <img
-          src={
-            item?.type == "crop" ? item?.plant.image : item?.plant.seed_image
-          }
-        />
+        <img src={image} />
       </div>
-      <div className={s.cardName}>{item?.plant.name}</div>
-      <div className={s.cardDescription}>{item?.plant.description}</div>
+      <div className={s.cardName}>{name}</div>
+      <div className={s.cardDescription}>{description}</div>
       <div className={s.cardRarity}>
         Редкость:
         <div className={s.cardRarityItems}>
@@ -35,33 +44,35 @@ export const Card: FC<TCardProps> = ({ item }) => {
               <div
                 key={index}
                 className={cn(s.cardRarityItem, {
-                  [s.active]: index < item?.plant.rarity,
+                  [s.active]: index < rarity,
                 })}
               />
             ))}
         </div>
       </div>
       <div className={s.specifications}>
-        <div className={s.specificationsItem}>
-          <CurrencyIcon />
-          <div className={s.specificationsItemText}>
-            {item?.plant.seed_price} DSC
-          </div>
-        </div>
-        {item?.type == "seed_stock" && (
+        {seedPrice && (
           <div className={s.specificationsItem}>
-            <TimeIcon />
-            <div className={s.specificationsItemText}>
-              {item?.plant.growing_time} мин
-            </div>
+            <CurrencyIcon />
+            <div className={s.specificationsItemText}>{seedPrice} DSC</div>
           </div>
         )}
-        {item?.type == "crop" && (
+        {sellingPrice && (
+          <div className={s.specificationsItem}>
+            <CurrencyIcon />
+            <div className={s.specificationsItemText}>{sellingPrice} DSC</div>
+          </div>
+        )}
+        {growingTime && (
+          <div className={s.specificationsItem}>
+            <TimeIcon />
+            <div className={s.specificationsItemText}>{growingTime} мин</div>
+          </div>
+        )}
+        {experience && (
           <div className={s.specificationsItem}>
             <ArrowUpIcon />
-            <div className={s.specificationsItemText}>
-              {item?.plant.experience} XP
-            </div>
+            <div className={s.specificationsItemText}>{experience} XP</div>
           </div>
         )}
       </div>

@@ -15,20 +15,14 @@
   }
 
   .miniCardImage {
-    width: 80px;
     text-align: center;
+    width: 100%;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    .plant {
-      max-height: 64px;
-      max-width: 64px;
-      filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.25));
-    }
-
-    .seed {
+    .miniCardImage {
       max-height: 64px;
       max-width: 64px;
       filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.25));

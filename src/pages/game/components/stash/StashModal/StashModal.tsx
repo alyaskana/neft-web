@@ -11,7 +11,7 @@ import {
   TModal,
 } from "@/share/components";
 import { $stash } from "@/pages/game/model";
-import { TCrop, TSeedStock } from "@/types/game";
+import { TCrop, TSeedStock, TStash } from "@/types/game";
 
 import s from "./StashModal.module.scss";
 
@@ -34,26 +34,48 @@ export const StashModal: FC<TStashModal> = (props) => {
     <Modal {...props}>
       <Tabs>
         <TabPanel>
-          <div className={s.stash}>
-            <LeftPanel>
-              {Object.values(stash).map((stashGroups) => {
-                return stashGroups.map((stashItem) => (
-                  <MiniCard
-                    item={stashItem}
-                    active={
-                      stashItem.id == activeStashItem?.id &&
-                      stashItem.type == activeStashItem?.type
-                    }
-                    onClick={setActiveStashItem}
-                    key={`${stashItem.type}-${stashItem.id}`}
-                  />
-                ));
-              })}
-            </LeftPanel>
-            <RightPanel>
-              <Card item={activeStashItem} />
-            </RightPanel>
-          </div>
+          <LeftPanel>
+            {Object.keys(stash).map((key) => {
+              return stash[key as keyof TStash].map((stashItem) => (
+                <MiniCard
+                  count={stashItem.count}
+                  image={
+                    stashItem.type == "crop"
+                      ? stashItem.plant.image
+                      : stashItem.plant.seed_image
+                  }
+                  active={
+                    stashItem.id == activeStashItem?.id &&
+                    stashItem.type == activeStashItem?.type
+                  }
+                  onClick={() => setActiveStashItem(stashItem)}
+                  key={`${stashItem.type}-${stashItem.id}`}
+                />
+              ));
+            })}
+          </LeftPanel>
+          <RightPanel>
+            {activeStashItem && activeStashItem.type == "crop" && (
+              <Card
+                image={activeStashItem.plant.image}
+                name={activeStashItem.plant.name}
+                description={activeStashItem.plant.description}
+                rarity={activeStashItem.plant.rarity}
+                sellingPrice={activeStashItem.plant.price}
+                experience={activeStashItem.plant.experience}
+              />
+            )}
+            {activeStashItem && activeStashItem.type == "seed_stock" && (
+              <Card
+                image={activeStashItem.plant.seed_image}
+                name={activeStashItem.plant.name}
+                description={activeStashItem.plant.description}
+                rarity={activeStashItem.plant.rarity}
+                seedPrice={activeStashItem.plant.seed_price}
+                growingTime={activeStashItem.plant.growing_time}
+              />
+            )}
+          </RightPanel>
         </TabPanel>
       </Tabs>
     </Modal>

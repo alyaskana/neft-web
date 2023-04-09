@@ -69,3 +69,8 @@ export type TGrowingSeed = {
   stage: "growing" | "complete";
   plant: TPlant;
 };
+
+export type TStash = {
+  seedStocks: TSeedStock[];
+  crops: TCrop[];
+};
