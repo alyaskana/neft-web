@@ -1,0 +1,55 @@
+.miniCard {
+  display: flex;
+  width: 72px;
+  height: 72px;
+  background: #ececec;
+  border-radius: 16px;
+  box-sizing: border-box;
+  padding: 4px;
+  position: relative;
+  border: 2px solid transparent;
+  cursor: pointer;
+
+  &.active {
+    border: 2px dashed #5c5c5c;
+  }
+
+  .miniCardImage {
+    width: 80px;
+    text-align: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .plant {
+      max-height: 64px;
+      max-width: 64px;
+      filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.25));
+    }
+
+    .seed {
+      max-height: 64px;
+      max-width: 64px;
+      filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.25));
+    }
+  }
+
+  .miniCardCount {
+    position: absolute;
+    left: -5px;
+    bottom: -7px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid #838383;
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.25);
+    font-family: "Jeko", sans-serif;
+    font-size: 9px;
+    padding-top: 1px;
+  }
+}

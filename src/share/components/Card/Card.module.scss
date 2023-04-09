@@ -1,10 +1,4 @@
-.stash {
-  display: flex;
-  gap: 12px;
-  height: 100%;
-}
-
-.info {
+.card {
   width: 212px;
   box-sizing: border-box;
   padding-bottom: 12px;
@@ -13,7 +7,7 @@
   padding: 16px;
   box-sizing: border-box;
 
-  .infoImage {
+  .cardImage {
     width: 152px;
     height: 152px;
     padding: 16px;
@@ -29,7 +23,7 @@
     }
   }
 
-  .infoName {
+  .cardName {
     margin-top: 12px;
     font-family: "Jeko";
     font-size: 20px;
@@ -37,13 +31,13 @@
     text-align: center;
   }
 
-  .infoDescription {
+  .cardDescription {
     margin-top: 4px;
     font-size: 12px;
     line-height: 15px;
   }
 
-  .infoRarity {
+  .cardRarity {
     margin-top: 12px;
     font-family: "Jeko";
     font-size: 10px;
@@ -54,12 +48,12 @@
     padding-bottom: 12px;
   }
 
-  .infoRarityItems {
+  .cardRarityItems {
     display: flex;
     gap: 4px;
   }
 
-  .infoRarityItem {
+  .cardRarityItem {
     width: 12px;
     height: 12px;
     background: #d9d9d9;
@@ -94,16 +88,4 @@
     line-height: 12px;
     padding-top: 2px;
   }
-}
-
-.stashInfo {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-left: 16px;
-}
-
-.stashName {
-  font-weight: bold;
 }
