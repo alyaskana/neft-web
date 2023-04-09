@@ -29,6 +29,7 @@ export type TPlant = {
   price: number;
   seed_price: number;
   growing_time: number;
+  experience: number;
   created_at: string;
   updated_at: string;
 };

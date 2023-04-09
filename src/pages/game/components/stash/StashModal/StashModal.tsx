@@ -9,6 +9,7 @@ import { TCrop, TSeedStock } from "@/types/game";
 
 import { ReactComponent as CurrencyIcon } from "@/assets/icons/currency.svg";
 import { ReactComponent as TimeIcon } from "@/assets/icons/time.svg";
+import { ReactComponent as ArrowUpIcon } from "@/assets/icons/arrow-up.svg";
 import s from "./StashModal.module.scss";
 
 type TStashModal = TModal;
@@ -30,9 +31,15 @@ const StachItem: FC<TStachItem> = ({ item, active, onClick }) => {
       }}
     >
       <div className={s.stashItemImage}>
-        <img src={imgHref} />
-        <div className={s.stashItemCount}>{item.count}</div>
+        <img
+          src={imgHref}
+          className={cn({
+            [s.seed]: item.type == "seed_stock",
+            [s.plant]: item.type == "crop",
+          })}
+        />
       </div>
+      <div className={s.stashItemCount}>{item.count}</div>
     </div>
   );
 };
@@ -110,12 +117,22 @@ export const StashModal: FC<TStashModal> = (props) => {
                       {activeStashItem?.plant.seed_price} DSC
                     </div>
                   </div>
-                  <div className={s.specificationsItem}>
-                    <TimeIcon />
-                    <div className={s.specificationsItemText}>
-                      {activeStashItem?.plant.growing_time} мин
+                  {activeStashItem?.type == "seed_stock" && (
+                    <div className={s.specificationsItem}>
+                      <TimeIcon />
+                      <div className={s.specificationsItemText}>
+                        {activeStashItem?.plant.growing_time} мин
+                      </div>
                     </div>
-                  </div>
+                  )}
+                  {activeStashItem?.type == "crop" && (
+                    <div className={s.specificationsItem}>
+                      <ArrowUpIcon />
+                      <div className={s.specificationsItemText}>
+                        {activeStashItem?.plant.experience} XP
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
