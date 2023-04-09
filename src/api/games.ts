@@ -101,3 +101,17 @@ export const eatCropFx = createEffect<
     params,
   });
 });
+
+type TSellCropResponse = {
+  crops: TCrop[];
+  wallet: TWallet;
+};
+export const sellCropFx = createEffect<
+  { crop_id: number },
+  AxiosResponse<TSellCropResponse>
+>(async (params) => {
+  return await fetcher.post<TSellCropResponse>({
+    path: "games/sell_crop",
+    params,
+  });
+});

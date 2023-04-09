@@ -42,43 +42,22 @@ export const Seeds = () => {
         ;
       </LeftPanel>
       <RightPanel>
-        <div className={s.infoBlock}>
-          <Card
-            name={activePlant.name}
-            image={activePlant.seed_image}
-            description={activePlant.description}
-            rarity={activePlant.rarity}
-            seedPrice={activePlant.seed_price}
-            growingTime={activePlant.growing_time}
-          />
-          <Button
-            onClick={() => {
-              handleClick(activePlant);
-            }}
-          >
-            купить
-          </Button>
-        </div>
+        <Card
+          name={activePlant.name}
+          image={activePlant.seed_image}
+          description={activePlant.description}
+          rarity={activePlant.rarity}
+          seedPrice={activePlant.seed_price}
+          growingTime={activePlant.growing_time}
+        />
+        <Button
+          onClick={() => {
+            handleClick(activePlant);
+          }}
+        >
+          купить
+        </Button>
       </RightPanel>
     </>
   );
 };
-
-{
-  /* <h2>Семена</h2>
-      {plants.map((plant) => {
-        return (
-          <div
-            key={plant.id}
-            className={s.seed}
-            onClick={() => handleClick(plant)}
-          >
-            <img src={plant.seed_image} />
-            <div>{plant.name}</div>
-            <div>{plant.seed_price}</div>
-            <hr />
-          </div>
-        );
-      })}
-    </div> */
-}
