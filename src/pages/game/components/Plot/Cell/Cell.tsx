@@ -1,10 +1,10 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { useStore } from "effector-react";
 import cn from "classnames";
 
 import { TCell } from "@/types/game";
 import { $activeSeedStock } from "@/pages/game/model";
-import { secondFromNow } from "@/utils/secondFromNow";
+import { ProgressBar } from "./ProgressBar";
 
 import s from "./Cell.module.scss";
 import { harvestingFx, plantSeedFx } from "@/api/games";
@@ -14,25 +14,7 @@ type TCellProps = {
 };
 
 export const Cell: FC<TCellProps> = ({ cell }) => {
-  const timerDefault = cell.growing_seed
-    ? secondFromNow(new Date(cell.growing_seed.final_grow_time))
-    : 0;
-
   const activeSeedStock = useStore($activeSeedStock);
-  const [growSeconds, setGrowSeconds] = useState(timerDefault);
-
-  useEffect(() => {
-    if (!cell.growing_seed) return;
-
-    const interval = setInterval(() => {
-      if (growSeconds <= 1) {
-        clearInterval(interval);
-      }
-      setGrowSeconds((growSeconds) => growSeconds - 1);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   const handleClick = () => {
     if (cell.land_type == "garden_bed" && cell.growing_seed == undefined) {
@@ -57,7 +39,10 @@ export const Cell: FC<TCellProps> = ({ cell }) => {
       {cell.growing_seed && cell.growing_seed.stage == "growing" && (
         <>
           <img className={s.seed} src={cell.growing_seed.plant.image} />
-          <div className={s.timer}>{growSeconds}</div>
+          <ProgressBar
+            final_grow_time={cell.growing_seed.final_grow_time}
+            growing_time={cell.growing_seed.growing_time}
+          />
         </>
       )}
       {cell.growing_seed && cell.growing_seed.stage == "complete" && (

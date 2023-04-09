@@ -1,0 +1,31 @@
+.progressBar {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 2px);
+  z-index: 1;
+  bottom: 10px;
+  left: 0;
+  height: 6px;
+  background: #fff;
+  border-radius: 50px;
+
+  & > div {
+    width: calc(100% - 2px);
+  }
+
+  .timeLeft {
+    position: absolute;
+    width: auto;
+    left: 50%;
+    bottom: -6px;
+    transform: translateX(-50%);
+    font-family: "Jeko";
+    font-size: 7px;
+    background: #fff;
+    line-height: 8px;
+    border-radius: 4px;
+    padding: 1px 2px 0 2px;
+  }
+}
