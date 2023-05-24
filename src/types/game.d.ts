@@ -44,6 +44,30 @@ export type TResource = {
   updated_at: string;
 };
 
+export type TMineral = {
+  id: number;
+  name: string;
+  price: number;
+  recovery_time: number;
+  image: string;
+};
+
+export type TRecipe = {
+  id: number;
+  name: string;
+  description: string;
+  experience: number;
+  image: string;
+};
+
+export type TInstrument = {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+};
+
 export type TWallet = {
   dsc: number;
 };
@@ -53,6 +77,27 @@ export type TSeedStock = {
   count: number;
   plant: TPlant;
   type: "seed_stock";
+};
+
+export type TRecipeStock = {
+  id: number;
+  count: number;
+  recipe: TRecipe;
+  type: "recipe_stock";
+};
+
+export type TMineralStock = {
+  id: number;
+  count: number;
+  mineral: TMineral;
+  type: "mineral_stock";
+};
+
+export type TInstrumentStock = {
+  id: number;
+  count: number;
+  instrument: TInstrument;
+  type: "instrument_stock";
 };
 
 export type TCrop = {
@@ -73,5 +118,8 @@ export type TGrowingSeed = {
 
 export type TStash = {
   seedStocks: TSeedStock[];
+  recipeStocks: TRecipeStock[];
+  instrumentStocks: TInstrumentStock[];
+  mineralStocks: TMineralStock[];
   crops: TCrop[];
 };

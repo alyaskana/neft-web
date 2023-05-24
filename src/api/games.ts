@@ -9,6 +9,12 @@ import {
   TWallet,
   TSeedStock,
   TCrop,
+  TInstrument,
+  TMineral,
+  TRecipe,
+  TRecipeStock,
+  TMineralStock,
+  TInstrumentStock,
 } from "@/types/game";
 
 type TGameState = {
@@ -16,8 +22,14 @@ type TGameState = {
   resources: TResource[];
   fishes: TFish[];
   plots: TPlot[];
+  instruments: TInstrument[];
+  minerals: TMineral[];
+  recipes: TRecipe[];
   wallet: TWallet;
   seed_stocks: TSeedStock[];
+  recipe_stocks: TRecipeStock[];
+  mineral_stocks: TMineralStock[];
+  instrument_stocks: TInstrumentStock[];
   crops: TCrop[];
 };
 

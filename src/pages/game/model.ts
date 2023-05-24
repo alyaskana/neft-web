@@ -25,6 +25,11 @@ import {
   TWallet,
   TSeedStock,
   TCrop,
+  TInstrument,
+  TMineral,
+  TRecipeStock,
+  TInstrumentStock,
+  TMineralStock,
 } from "@/types/game";
 
 export type TMessage = {
@@ -50,11 +55,17 @@ export const $plants = createStore<TPlant[]>([]);
 export const $resources = createStore<TResource[]>([]);
 export const $plots = createStore<TPlot[]>([]);
 export const $fishes = createStore<TFish[]>([]);
+export const $instruments = createStore<TInstrument[]>([]);
+export const $minerals = createStore<TMineral[]>([]);
+export const $recipes = createStore<TRecipe[]>([]);
 export const $activeFish = $fishes.map<TFish>(
   (state) => state.find((fish) => fish.is_active) || state[0]
 );
 export const $wallet = createStore<TWallet>({ dsc: 0 });
 export const $seedStocks = createStore<TSeedStock[]>([]);
+export const $recipeStocks = createStore<TRecipeStock[]>([]);
+export const $instrumentStocks = createStore<TInstrumentStock[]>([]);
+export const $mineralStocks = createStore<TMineralStock[]>([]);
 export const $crops = createStore<TCrop[]>([]);
 export const $stash = combine($seedStocks, $crops, (seedStocks, crops) => {
   const filteredSeedStocks = seedStocks.filter(
@@ -122,6 +133,18 @@ $fishes.on(
   [fetchCurrentStateFx.doneData, eatCropFx.doneData],
   (_, { data: { fishes } }) => fishes
 );
+$minerals.on(
+  [fetchCurrentStateFx.doneData],
+  (_, { data: { minerals } }) => minerals
+);
+$recipes.on(
+  [fetchCurrentStateFx.doneData],
+  (_, { data: { recipes } }) => recipes
+);
+$instruments.on(
+  [fetchCurrentStateFx.doneData],
+  (_, { data: { instruments } }) => instruments
+);
 $wallet.on(
   [fetchCurrentStateFx.doneData, buySeedFx.doneData, sellCropFx.doneData],
   (_, { data: { wallet } }) => wallet
@@ -134,6 +157,18 @@ $seedStocks.on(
     plantSeedFx.doneData,
   ],
   (_, { data: { seed_stocks } }) => seed_stocks
+);
+$recipeStocks.on(
+  [fetchCurrentStateFx.doneData],
+  (_, { data: { recipe_stocks } }) => recipe_stocks
+);
+$mineralStocks.on(
+  [fetchCurrentStateFx.doneData],
+  (_, { data: { mineral_stocks } }) => mineral_stocks
+);
+$instrumentStocks.on(
+  [fetchCurrentStateFx.doneData],
+  (_, { data: { instrument_stocks } }) => instrument_stocks
 );
 $crops.on(
   [
@@ -164,11 +199,29 @@ $plots.watch((data) => {
 $fishes.watch((data) => {
   console.log("$fishes: ", data);
 });
+$recipes.watch((data) => {
+  console.log("$recipes: ", data);
+});
+$instruments.watch((data) => {
+  console.log("$instruments: ", data);
+});
+$minerals.watch((data) => {
+  console.log("$minerals: ", data);
+});
 $wallet.watch((data) => {
   console.log("$wallet: ", data);
 });
 $seedStocks.watch((data) => {
   console.log("$seedStocks: ", data);
+});
+$recipeStocks.watch((data) => {
+  console.log("$recipeStocks: ", data);
+});
+$instrumentStocks.watch((data) => {
+  console.log("$instrumentStocks: ", data);
+});
+$mineralStocks.watch((data) => {
+  console.log("$mineralStocks: ", data);
 });
 $crops.watch((data) => {
   console.log("$crops: ", data);
