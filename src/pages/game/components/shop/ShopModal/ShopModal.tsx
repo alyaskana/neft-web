@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
 import { Modal, TModal } from "@/share/components";
-import { Seeds } from "./Seed/Seeds";
+import { Buy } from "./Buy/Buy";
 import { Sell } from "./Sell";
 
 type TShopModal = TModal;
@@ -17,7 +17,7 @@ export const ShopModal: FC<TShopModal> = (props) => {
         </TabList>
 
         <TabPanel>
-          <Seeds />
+          <Buy />
         </TabPanel>
         <TabPanel>
           <Sell />

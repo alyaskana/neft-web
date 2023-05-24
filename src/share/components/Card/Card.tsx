@@ -11,7 +11,6 @@ type TCardProps = {
   image: string;
   name: string;
   description: string;
-  rarity: number;
   seedPrice?: number;
   growingTime?: number;
   experience?: number;
@@ -22,7 +21,6 @@ export const Card: FC<TCardProps> = ({
   image,
   name,
   description,
-  rarity,
   seedPrice,
   growingTime,
   experience,
@@ -35,21 +33,6 @@ export const Card: FC<TCardProps> = ({
       </div>
       <div className={s.cardName}>{name}</div>
       <div className={s.cardDescription}>{description}</div>
-      <div className={s.cardRarity}>
-        Редкость:
-        <div className={s.cardRarityItems}>
-          {Array(5)
-            .fill(null)
-            .map((_, index) => (
-              <div
-                key={index}
-                className={cn(s.cardRarityItem, {
-                  [s.active]: index < rarity,
-                })}
-              />
-            ))}
-        </div>
-      </div>
       <div className={s.specifications}>
         {seedPrice && (
           <div className={s.specificationsItem}>

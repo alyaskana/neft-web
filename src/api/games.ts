@@ -57,6 +57,21 @@ export const buySeedFx = createEffect<
   });
 });
 
+type TBuyInstrumentResponse = {
+  instrument_stocks: TInstrumentStock[];
+  wallet: TWallet;
+};
+
+export const buyInstrumentFx = createEffect<
+  { instrument_id: number },
+  AxiosResponse<TBuyInstrumentResponse>
+>(async (params) => {
+  return await fetcher.post<TBuyInstrumentResponse>({
+    path: "games/buy_instrument",
+    params,
+  });
+});
+
 type TNewPlotResponse = {
   plots: TPlot[];
 };

@@ -11,6 +11,7 @@ import { Subscription } from "@rails/actioncable";
 import {
   fetchCurrentStateFx,
   buySeedFx,
+  buyInstrumentFx,
   newPlotFx,
   plantSeedFx,
   harvestingFx,
@@ -30,6 +31,7 @@ import {
   TRecipeStock,
   TInstrumentStock,
   TMineralStock,
+  TRecipe,
 } from "@/types/game";
 
 export type TMessage = {
@@ -78,16 +80,15 @@ export const $stash = combine($seedStocks, $crops, (seedStocks, crops) => {
   };
 });
 
-export const $activeSeedStock = $seedStocks.map<TSeedStock>(
-  (state, lastState) =>
-    lastState == undefined
-      ? state.filter((seedStock) => seedStock.count > 0).pop()!
-      : lastState
+export const $activeSeedStock = createStore<TSeedStock | null>(null);
+export const $activeInstrumentStock = createStore<TInstrumentStock | null>(
+  null
 );
 
 export const gamePageMounted = createEvent();
 export const messageReceived = createEvent<TMessage>();
-export const clickSeedStock = createEvent<TSeedStock>();
+export const clickSeedStock = createEvent<TSeedStock | null>();
+export const clickInstrumentStock = createEvent<TInstrumentStock | null>();
 export const plantHasGrownFX = createEffect<TMessage, void>((msg) => {
   console.log("$plantHasGrown message received :", msg);
 });
@@ -146,7 +147,12 @@ $instruments.on(
   (_, { data: { instruments } }) => instruments
 );
 $wallet.on(
-  [fetchCurrentStateFx.doneData, buySeedFx.doneData, sellCropFx.doneData],
+  [
+    fetchCurrentStateFx.doneData,
+    buySeedFx.doneData,
+    sellCropFx.doneData,
+    buyInstrumentFx.doneData,
+  ],
   (_, { data: { wallet } }) => wallet
 );
 $seedStocks.on(
@@ -167,7 +173,7 @@ $mineralStocks.on(
   (_, { data: { mineral_stocks } }) => mineral_stocks
 );
 $instrumentStocks.on(
-  [fetchCurrentStateFx.doneData],
+  [fetchCurrentStateFx.doneData, buyInstrumentFx.doneData],
   (_, { data: { instrument_stocks } }) => instrument_stocks
 );
 $crops.on(
@@ -180,6 +186,10 @@ $crops.on(
   (_, { data: { crops } }) => crops
 );
 $activeSeedStock.on(clickSeedStock, (_, seedStock) => seedStock);
+$activeInstrumentStock.on(
+  clickInstrumentStock,
+  (_, instrumentStock) => instrumentStock
+);
 $gameChannel.on(setGameChannel, (_, channel) => channel);
 
 sample({
@@ -231,4 +241,10 @@ $gameChannel.watch((data) => {
 });
 $stash.watch((data) => {
   console.log("$stash: ", data);
+});
+$activeSeedStock.watch((data) => {
+  console.log("$activeSeedStock: ", data);
+});
+$activeInstrumentStock.watch((data) => {
+  console.log("$activeInstrumentStock: ", data);
 });
