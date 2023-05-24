@@ -18,7 +18,7 @@ export const Cell: FC<TCellProps> = ({ cell }) => {
 
   const handleClick = () => {
     if (cell.land_type == "garden_bed" && cell.growing_seed == undefined) {
-      plantSeedFx({ cell_id: cell.id, seed_stock_id: activeSeedStock.id });
+      plantSeedFx({ cell_id: cell.id, seed_stock_id: activeSeedStock!.id });
     }
     if (cell.land_type == "garden_bed" && cell.growing_seed) {
       harvestingFx({

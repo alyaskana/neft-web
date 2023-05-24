@@ -1,6 +1,6 @@
 export { Fish } from "./fishes/Fish/Fish";
 export { Land } from "./Land/Land";
-export { LastSeeds } from "./LastSeeds/LastSeeds";
+export { QucikPanel } from "./QucikPanel/QucikPanel";
 export { MoneyLabel } from "./money/MoneyLabel/MoneyLabel";
 export { Plot } from "./Plot/Plot";
 export { Shop } from "./shop/Shop/Shop";

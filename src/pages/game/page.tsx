@@ -4,7 +4,7 @@ import { setGameChannel, $fishes } from "./model";
 
 import { useActionCable } from "@/hooks/useActionCable";
 
-import { Land, Fish, Stash, Shop, MoneyLabel, LastSeeds } from "./components";
+import { Land, Fish, Stash, Shop, MoneyLabel, QucikPanel } from "./components";
 import { gamePageMounted } from "./model";
 import { messageReceived, TMessage } from "./model";
 
@@ -46,7 +46,7 @@ export const GamePage = () => {
           <Fish fish={fish} key={fish.id} />
         ))}
         <MoneyLabel />
-        <LastSeeds />
+        <QucikPanel />
         <Stash />
         <Shop />
         <Land />
