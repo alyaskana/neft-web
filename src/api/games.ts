@@ -114,6 +114,22 @@ export const harvestingFx = createEffect<
   });
 });
 
+type TCollectMineralResponse = {
+  plots: TPlot[];
+  mineral_stocks: TMineralStock[];
+  instrument_stocks: TInstrumentStock[];
+};
+
+export const collectMineralFx = createEffect<
+  { cell_mineral_id: number; instrument_stock_id: number },
+  AxiosResponse<TCollectMineralResponse>
+>(async (params) => {
+  return await fetcher.post<TCollectMineralResponse>({
+    path: "games/collect_mineral",
+    params,
+  });
+});
+
 type TEatCropResponse = {
   crops: TCrop[];
   fishes: TFish[];

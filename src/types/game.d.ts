@@ -3,6 +3,7 @@ export type TCell = {
   is_taken: boolean;
   land_type: "stone" | "grass" | "garden_bed";
   growing_seed?: TGrowingSeed;
+  cell_mineral?: TCellMineral;
 };
 
 export type TPlot = {
@@ -47,6 +48,7 @@ export type TResource = {
 export type TMineral = {
   id: number;
   name: string;
+  description: string;
   price: number;
   recovery_time: number;
   image: string;
@@ -114,6 +116,14 @@ export type TGrowingSeed = {
   final_grow_time: string;
   stage: "growing" | "complete";
   plant: TPlant;
+};
+
+export type TCellMineral = {
+  id: number;
+  created_at: number;
+  final_recover_time: string;
+  stage: "ready" | "recovering";
+  mineral: TMineral;
 };
 
 export type TStash = {

@@ -17,6 +17,7 @@ import {
   harvestingFx,
   eatCropFx,
   sellCropFx,
+  collectMineralFx,
 } from "@/api/games";
 import {
   TPlant,
@@ -69,16 +70,35 @@ export const $recipeStocks = createStore<TRecipeStock[]>([]);
 export const $instrumentStocks = createStore<TInstrumentStock[]>([]);
 export const $mineralStocks = createStore<TMineralStock[]>([]);
 export const $crops = createStore<TCrop[]>([]);
-export const $stash = combine($seedStocks, $crops, (seedStocks, crops) => {
-  const filteredSeedStocks = seedStocks.filter(
-    (seedStock) => seedStock.count > 0
-  );
-  const filteredCrops = crops.filter((crop) => crop.count > 0);
-  return {
-    seedStocks: filteredSeedStocks,
-    crops: filteredCrops,
-  };
-});
+export const $stash = combine(
+  $seedStocks,
+  $crops,
+  $instrumentStocks,
+  $mineralStocks,
+  $recipeStocks,
+  (seedStocks, crops, instrumentStocks, mineralStocks, recipeStocks) => {
+    const filteredSeedStocks = seedStocks.filter(
+      (seedStock) => seedStock.count > 0
+    );
+    const filteredInstrumentStocks = instrumentStocks.filter(
+      (instrumentStock) => instrumentStock.count > 0
+    );
+    const filteredMineralStocks = mineralStocks.filter(
+      (mineralStock) => mineralStock.count > 0
+    );
+    const filteredRecipeStocks = recipeStocks.filter(
+      (recipeStock) => recipeStock.count > 0
+    );
+    const filteredCrops = crops.filter((crop) => crop.count > 0);
+    return {
+      seedStocks: filteredSeedStocks,
+      instrumentStocks: filteredInstrumentStocks,
+      mineralStocks: filteredMineralStocks,
+      recipeStocks: filteredRecipeStocks,
+      crops: filteredCrops,
+    };
+  }
+);
 
 export const $activeSeedStock = createStore<TSeedStock | null>(null);
 export const $activeInstrumentStock = createStore<TInstrumentStock | null>(
@@ -127,6 +147,7 @@ $plots.on(
     newPlotFx.doneData,
     plantSeedFx.doneData,
     harvestingFx.doneData,
+    collectMineralFx.doneData,
   ],
   (_, { data: { plots } }) => plots
 );
@@ -169,11 +190,15 @@ $recipeStocks.on(
   (_, { data: { recipe_stocks } }) => recipe_stocks
 );
 $mineralStocks.on(
-  [fetchCurrentStateFx.doneData],
+  [fetchCurrentStateFx.doneData, collectMineralFx.doneData],
   (_, { data: { mineral_stocks } }) => mineral_stocks
 );
 $instrumentStocks.on(
-  [fetchCurrentStateFx.doneData, buyInstrumentFx.doneData],
+  [
+    fetchCurrentStateFx.doneData,
+    buyInstrumentFx.doneData,
+    collectMineralFx.doneData,
+  ],
   (_, { data: { instrument_stocks } }) => instrument_stocks
 );
 $crops.on(

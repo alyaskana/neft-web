@@ -10,13 +10,11 @@
     border: 2px solid #b9760f;
   }
 
-  &.stone {
-    background-image: url("/src/assets/sprites/resource.png");
-  }
   &.garden_bed {
     background-image: url("/src/assets/sprites/dirt.png");
   }
-  &.grass {
+  &.grass,
+  &.stone {
     background-image: url("/src/assets/sprites/grass.png");
   }
 
