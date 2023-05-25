@@ -7,6 +7,7 @@ import { useActionCable } from "@/hooks/useActionCable";
 import { Land, Fish, Stash, Shop, MoneyLabel, QucikPanel } from "./components";
 import { gamePageMounted } from "./model";
 import { messageReceived, TMessage } from "./model";
+import { Feeder } from "./components/feeder";
 
 export const GamePage = () => {
   const handleGamePageMounted = useEvent(gamePageMounted);
@@ -49,6 +50,7 @@ export const GamePage = () => {
         <QucikPanel />
         <Stash />
         <Shop />
+        <Feeder />
         <Land />
       </div>
     </div>

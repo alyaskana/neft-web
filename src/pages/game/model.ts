@@ -19,6 +19,7 @@ import {
   sellCropFx,
   collectMineralFx,
   sellMineralFx,
+  eatRecipeFx,
 } from "@/api/games";
 import {
   TPlant,
@@ -153,7 +154,7 @@ $plots.on(
   (_, { data: { plots } }) => plots
 );
 $fishes.on(
-  [fetchCurrentStateFx.doneData, eatCropFx.doneData],
+  [fetchCurrentStateFx.doneData, eatCropFx.doneData, eatRecipeFx.doneData],
   (_, { data: { fishes } }) => fishes
 );
 $minerals.on(
@@ -188,7 +189,7 @@ $seedStocks.on(
   (_, { data: { seed_stocks } }) => seed_stocks
 );
 $recipeStocks.on(
-  [fetchCurrentStateFx.doneData],
+  [fetchCurrentStateFx.doneData, eatRecipeFx.doneData],
   (_, { data: { recipe_stocks } }) => recipe_stocks
 );
 $mineralStocks.on(

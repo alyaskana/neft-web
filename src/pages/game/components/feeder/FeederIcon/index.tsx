@@ -1,0 +1,1 @@
+export { FeederIcon } from "./FeederIcon";

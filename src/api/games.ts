@@ -145,6 +145,21 @@ export const eatCropFx = createEffect<
   });
 });
 
+type TEatRecipeResponse = {
+  recipe_stocks: TRecipeStock[];
+  fishes: TFish[];
+};
+
+export const eatRecipeFx = createEffect<
+  { recipe_stock_id: number; fish_id: number },
+  AxiosResponse<TEatRecipeResponse>
+>(async (params) => {
+  return await fetcher.post<TEatRecipeResponse>({
+    path: "games/eat_recipe",
+    params,
+  });
+});
+
 type TSellCropResponse = {
   crops: TCrop[];
   wallet: TWallet;
@@ -155,6 +170,20 @@ export const sellCropFx = createEffect<
 >(async (params) => {
   return await fetcher.post<TSellCropResponse>({
     path: "games/sell_crop",
+    params,
+  });
+});
+
+type TSellMineralResponse = {
+  mineral_stocks: TMineralStock[];
+  wallet: TWallet;
+};
+export const sellMineralFx = createEffect<
+  { mineral_stock_id: number },
+  AxiosResponse<TSellMineralResponse>
+>(async (params) => {
+  return await fetcher.post<TSellMineralResponse>({
+    path: "games/sell_mineral",
     params,
   });
 });

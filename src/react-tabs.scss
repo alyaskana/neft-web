@@ -25,11 +25,12 @@
 
     &:first-child {
       margin-left: 0;
+      background: #bac24f;
     }
 
     &--selected {
-      background: #fff;
-      color: #000;
+      background: #fff !important;
+      color: #000 !important;
     }
 
     &--disabled {
