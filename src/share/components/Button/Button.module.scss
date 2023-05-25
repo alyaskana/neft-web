@@ -16,6 +16,14 @@
   &.big {
     width: 242px;
   }
+
+  &:hover {
+    background: #c6cc76;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
 }
 
 .link {
