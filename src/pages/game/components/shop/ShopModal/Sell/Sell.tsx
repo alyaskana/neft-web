@@ -3,7 +3,7 @@ import { useStore } from "effector-react";
 
 import { $stash } from "@/pages/game/model";
 import { TCrop } from "@/types/game";
-import { sellCropFx } from "@/api/games";
+import { sellCropFx, sellMineralFx } from "@/api/games";
 import {
   Button,
   Card,
@@ -14,48 +14,103 @@ import {
 
 import s from "./Sell.module.scss";
 
+type TCard = {
+  id: number;
+  count: number;
+  image: string;
+  key: string;
+  name: string;
+  description: string;
+  price?: number;
+  growing_time?: number;
+  experience?: number;
+  type: string;
+};
+
 export const Sell = () => {
   const stash = useStore($stash);
-  const [activeCrop, setActiveCrop] = useState<TCrop>(stash?.crops[0]);
+  const [activeCard, setActiveCard] = useState<TCard>(buildCards()[0]);
 
   useEffect(() => {
-    setActiveCrop(activeCrop || stash.crops[0]);
+    setActiveCard(activeCard || buildCards()[0]);
   }, [stash]);
 
-  const handleClick = (crop: TCrop) => {
-    sellCropFx({ crop_id: crop.id });
+  const handleClick = (card: TCard) => {
+    if (card.type === "crop") {
+      const crop = stash.crops.find((crop) => crop.id == card.id)!;
+      sellCropFx({ crop_id: crop.id });
+    }
+    if (card.type === "mineral_stock") {
+      const mineralStock = stash.mineralStocks.find(
+        (mineralStock) => mineralStock.id == card.id
+      )!;
+      sellMineralFx({ mineral_stock_id: mineralStock.id });
+    }
   };
+
+  function buildCards() {
+    const crops = stash.crops.map((crop) => {
+      return {
+        id: crop.id,
+        count: crop.count,
+        image: crop.plant.image,
+        name: crop.plant.name,
+        description: crop.plant.description,
+        price: crop.plant.price,
+        experience: crop.plant.experience,
+        type: crop.type,
+        key: `${crop.type}-${crop.id}`,
+      };
+    });
+    const mineralStocks = stash.mineralStocks.map((mineralStock) => {
+      return {
+        id: mineralStock.id,
+        count: mineralStock.count,
+        image: mineralStock.mineral.image,
+        name: mineralStock.mineral.name,
+        description: mineralStock.mineral.description,
+        price: mineralStock.mineral.price,
+        type: mineralStock.type,
+        key: `${mineralStock.type}-${mineralStock.id}`,
+      };
+    });
+
+    return [...crops, ...mineralStocks];
+  }
 
   return (
     <>
       <LeftPanel>
-        {stash.crops.map((crop, index) => (
+        {buildCards().map((card, index) => (
           <MiniCard
-            active={crop.id == activeCrop?.id}
-            image={crop.plant.image}
-            onClick={() => setActiveCrop(crop)}
-            key={crop.id}
-            count={crop.count}
+            active={card.key == activeCard.key}
+            image={card.image}
+            onClick={() => setActiveCard(card)}
+            key={card.id}
+            count={card.count}
           />
         ))}
         ;
       </LeftPanel>
       <RightPanel>
-        <Card
-          name={activeCrop.plant.name}
-          image={activeCrop.plant.image}
-          description={activeCrop.plant.description}
-          rarity={activeCrop.plant.rarity}
-          seedPrice={activeCrop.plant.price}
-          growingTime={activeCrop.plant.experience}
-        />
-        <Button
-          onClick={() => {
-            handleClick(activeCrop);
-          }}
-        >
-          продать
-        </Button>
+        {activeCard && (
+          <>
+            <Card
+              name={activeCard.name}
+              image={activeCard.image}
+              description={activeCard.description}
+              seedPrice={activeCard.price}
+              growingTime={activeCard.experience}
+            />
+            <Button
+              onClick={() => {
+                handleClick(activeCard);
+              }}
+            >
+              продать
+            </Button>
+          </>
+        )}
       </RightPanel>
     </>
   );
