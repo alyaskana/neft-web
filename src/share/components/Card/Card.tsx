@@ -6,6 +6,9 @@ import { ReactComponent as TimeIcon } from "@/assets/icons/time.svg";
 import { ReactComponent as ArrowUpIcon } from "@/assets/icons/arrow-up.svg";
 
 import s from "./Card.module.scss";
+import { TCrop, TRecipePlant } from "@/types/game";
+import { $crops } from "@/pages/game/model";
+import { useStore } from "effector-react";
 
 type TCardProps = {
   image: string;
@@ -15,8 +18,27 @@ type TCardProps = {
   growingTime?: number;
   experience?: number;
   sellingPrice?: number;
+  ingredients?: TRecipePlant[];
 };
 
+const Ingredient: FC<{ ingredient: TRecipePlant; crop: TCrop }> = ({
+  ingredient,
+  crop,
+}) => {
+  return (
+    <div className={s.cardIngredient}>
+      <div className={s.cardIngredientName}>{ingredient.plant.name}</div>
+      <div
+        className={cn(s.cardIngredientCount, {
+          [s.success]: crop.count >= ingredient.count,
+          [s.fail]: crop.count < ingredient.count,
+        })}
+      >
+        {`${crop.count}/${ingredient.count}`}
+      </div>
+    </div>
+  );
+};
 export const Card: FC<TCardProps> = ({
   image,
   name,
@@ -25,7 +47,10 @@ export const Card: FC<TCardProps> = ({
   growingTime,
   experience,
   sellingPrice,
+  ingredients,
 }) => {
+  const crops = useStore($crops);
+
   return (
     <div className={s.card}>
       <div className={s.cardImage}>
@@ -33,6 +58,19 @@ export const Card: FC<TCardProps> = ({
       </div>
       <div className={s.cardName}>{name}</div>
       <div className={s.cardDescription}>{description}</div>
+      <div>
+        {ingredients &&
+          ingredients.map((ingredient) => (
+            <div className={s.cardIngredients}>
+              <Ingredient
+                ingredient={ingredient}
+                crop={
+                  crops.find((crop) => crop.plant.id == ingredient.plant.id)!
+                }
+              />
+            </div>
+          ))}
+      </div>
       <div className={s.specifications}>
         {seedPrice && (
           <div className={s.specificationsItem}>
@@ -49,7 +87,9 @@ export const Card: FC<TCardProps> = ({
         {growingTime && (
           <div className={s.specificationsItem}>
             <TimeIcon />
-            <div className={s.specificationsItemText}>{growingTime} мин</div>
+            <div className={s.specificationsItemText}>
+              {growingTime / 60} мин
+            </div>
           </div>
         )}
         {experience && (

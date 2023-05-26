@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useStore } from "effector-react";
 
 import { $stash, $activeFish } from "@/pages/game/model";
-import { eatCropFx, eatRecipeFx } from "@/api/games";
+import { eatCropFx, eatDishFx } from "@/api/games";
 import {
   Button,
   Card,
@@ -40,11 +40,9 @@ export const Eat = () => {
       const crop = stash.crops.find((crop) => crop.id == card.id)!;
       eatCropFx({ crop_id: crop.id, fish_id: activeFish.id });
     }
-    if (card.type === "recipe_stock") {
-      const recipeStock = stash.recipeStocks.find(
-        (recipeStock) => recipeStock.id == card.id
-      )!;
-      eatRecipeFx({ recipe_stock_id: recipeStock.id, fish_id: activeFish.id });
+    if (card.type === "dish") {
+      const dish = stash.dishes.find((dish) => dish.id == card.id)!;
+      eatDishFx({ dish_id: dish.id, fish_id: activeFish.id });
     }
   };
 
@@ -61,20 +59,20 @@ export const Eat = () => {
         key: `${crop.type}-${crop.id}`,
       };
     });
-    const recipeStocks = stash.recipeStocks.map((recipeStock) => {
+    const dishes = stash.dishes.map((dish) => {
       return {
-        id: recipeStock.id,
-        count: recipeStock.count,
-        image: recipeStock.recipe.image,
-        name: recipeStock.recipe.name,
-        description: recipeStock.recipe.description,
-        experience: recipeStock.recipe.experience,
-        type: recipeStock.type,
-        key: `${recipeStock.type}-${recipeStock.id}`,
+        id: dish.id,
+        count: dish.count,
+        image: dish.recipe.image,
+        name: dish.recipe.name,
+        description: dish.recipe.description,
+        experience: dish.recipe.experience,
+        type: dish.type,
+        key: `${dish.type}-${dish.id}`,
       };
     });
 
-    return [...crops, ...recipeStocks];
+    return [...crops, ...dishes];
   }
 
   return (
@@ -85,11 +83,10 @@ export const Eat = () => {
             active={card.key == activeCard.key}
             image={card.image}
             onClick={() => setActiveCard(card)}
-            key={card.id}
+            key={card.key}
             count={card.count}
           />
         ))}
-        ;
       </LeftPanel>
       <RightPanel>
         {activeCard && (

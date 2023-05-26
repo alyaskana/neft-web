@@ -19,7 +19,8 @@ import {
   sellCropFx,
   collectMineralFx,
   sellMineralFx,
-  eatRecipeFx,
+  eatDishFx,
+  cookRecipeFx,
 } from "@/api/games";
 import {
   TPlant,
@@ -31,14 +32,15 @@ import {
   TCrop,
   TInstrument,
   TMineral,
-  TRecipeStock,
+  TUserRecipe,
   TInstrumentStock,
   TMineralStock,
   TRecipe,
+  TDish,
 } from "@/types/game";
 
 export type TMessage = {
-  type: "plantHasGrown" | "updatePlots" | "updateSeedStocks";
+  type: "plantHasGrown" | "updatePlots" | "updateSeedStocks" | "updateDishes";
   data: Record<string, unknown>;
 };
 
@@ -50,6 +52,12 @@ type TUpdatePlotsMessage = TMessage & {
 type TSeedStocksMessage = TMessage & {
   data: {
     seed_stocks: TSeedStock[];
+  };
+};
+type TUpdateDishesMessage = TMessage & {
+  data: {
+    dishes: TDish[];
+    user_recipes: TUserRecipe[];
   };
 };
 
@@ -68,17 +76,18 @@ export const $activeFish = $fishes.map<TFish>(
 );
 export const $wallet = createStore<TWallet>({ dsc: 0 });
 export const $seedStocks = createStore<TSeedStock[]>([]);
-export const $recipeStocks = createStore<TRecipeStock[]>([]);
+export const $userRecipes = createStore<TUserRecipe[]>([]);
 export const $instrumentStocks = createStore<TInstrumentStock[]>([]);
 export const $mineralStocks = createStore<TMineralStock[]>([]);
 export const $crops = createStore<TCrop[]>([]);
+export const $dishes = createStore<TDish[]>([]);
 export const $stash = combine(
   $seedStocks,
   $crops,
   $instrumentStocks,
   $mineralStocks,
-  $recipeStocks,
-  (seedStocks, crops, instrumentStocks, mineralStocks, recipeStocks) => {
+  $dishes,
+  (seedStocks, crops, instrumentStocks, mineralStocks, dishes) => {
     const filteredSeedStocks = seedStocks.filter(
       (seedStock) => seedStock.count > 0
     );
@@ -88,16 +97,14 @@ export const $stash = combine(
     const filteredMineralStocks = mineralStocks.filter(
       (mineralStock) => mineralStock.count > 0
     );
-    const filteredRecipeStocks = recipeStocks.filter(
-      (recipeStock) => recipeStock.count > 0
-    );
+    const filteredDishes = dishes.filter((dish) => dish.count > 0);
     const filteredCrops = crops.filter((crop) => crop.count > 0);
     return {
       seedStocks: filteredSeedStocks,
       instrumentStocks: filteredInstrumentStocks,
       mineralStocks: filteredMineralStocks,
-      recipeStocks: filteredRecipeStocks,
       crops: filteredCrops,
+      dishes: filteredDishes,
     };
   }
 );
@@ -122,18 +129,24 @@ export const updateSeedStocksFx = createEffect<
   TSeedStocksMessage,
   TSeedStocksMessage
 >((msg) => msg);
+export const updateDishesFx = createEffect<
+  TUpdateDishesMessage,
+  TUpdateDishesMessage
+>((msg) => msg);
 
 split({
   source: messageReceived,
   match: {
     plantHasGrown: (msg) => msg.type === "plantHasGrown",
     plotsUpdated: (msg) => msg.type === "updatePlots",
+    updateDishes: (msg) => msg.type === "updateDishes",
     updateSeedStocks: (msg) => msg.type === "updateSeedStocks",
   },
   cases: {
     plantHasGrown: plantHasGrownFX,
     plotsUpdated: updatePlotsFx,
     updateSeedStocks: updateSeedStocksFx,
+    updateDishes: updateDishesFx,
   },
 });
 
@@ -154,7 +167,7 @@ $plots.on(
   (_, { data: { plots } }) => plots
 );
 $fishes.on(
-  [fetchCurrentStateFx.doneData, eatCropFx.doneData, eatRecipeFx.doneData],
+  [fetchCurrentStateFx.doneData, eatCropFx.doneData, eatDishFx.doneData],
   (_, { data: { fishes } }) => fishes
 );
 $minerals.on(
@@ -188,9 +201,13 @@ $seedStocks.on(
   ],
   (_, { data: { seed_stocks } }) => seed_stocks
 );
-$recipeStocks.on(
-  [fetchCurrentStateFx.doneData, eatRecipeFx.doneData],
-  (_, { data: { recipe_stocks } }) => recipe_stocks
+$userRecipes.on(
+  [
+    fetchCurrentStateFx.doneData,
+    updateDishesFx.doneData,
+    cookRecipeFx.doneData,
+  ],
+  (_, { data: { user_recipes } }) => user_recipes
 );
 $mineralStocks.on(
   [
@@ -214,8 +231,13 @@ $crops.on(
     harvestingFx.doneData,
     eatCropFx.doneData,
     sellCropFx.doneData,
+    cookRecipeFx.doneData,
   ],
   (_, { data: { crops } }) => crops
+);
+$dishes.on(
+  [fetchCurrentStateFx.doneData, eatDishFx.doneData, updateDishesFx.doneData],
+  (_, { data: { dishes } }) => dishes
 );
 $activeSeedStock.on(clickSeedStock, (_, seedStock) => seedStock);
 $activeInstrumentStock.on(
@@ -256,8 +278,8 @@ $wallet.watch((data) => {
 $seedStocks.watch((data) => {
   console.log("$seedStocks: ", data);
 });
-$recipeStocks.watch((data) => {
-  console.log("$recipeStocks: ", data);
+$userRecipes.watch((data) => {
+  console.log("$userRecipes: ", data);
 });
 $instrumentStocks.watch((data) => {
   console.log("$instrumentStocks: ", data);

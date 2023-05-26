@@ -1,3 +1,5 @@
+import { type } from "os";
+
 export type TCell = {
   id: number;
   is_taken: boolean;
@@ -59,7 +61,15 @@ export type TRecipe = {
   name: string;
   description: string;
   experience: number;
+  cooking_time: number;
   image: string;
+  recipe_plants: TRecipePlant[];
+};
+
+export type TRecipePlant = {
+  id: number;
+  count: number;
+  plant: TPlant;
 };
 
 export type TInstrument = {
@@ -81,10 +91,11 @@ export type TSeedStock = {
   type: "seed_stock";
 };
 
-export type TRecipeStock = {
+export type TUserRecipe = {
   id: number;
-  count: number;
   recipe: TRecipe;
+  stage: "cooking" | "ready";
+  final_cook_time: string;
   type: "recipe_stock";
 };
 
@@ -126,10 +137,10 @@ export type TCellMineral = {
   mineral: TMineral;
 };
 
-export type TStash = {
-  seedStocks: TSeedStock[];
-  recipeStocks: TRecipeStock[];
-  instrumentStocks: TInstrumentStock[];
-  mineralStocks: TMineralStock[];
-  crops: TCrop[];
+export type TDish = {
+  id: number;
+  recipe: TRecipe;
+  count: number;
+  stage: "cooking" | "ready";
+  type: "dish";
 };

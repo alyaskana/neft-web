@@ -1,2 +1,24 @@
-.cook {
+.activeCooking {
+  width: 410px;
+  height: 420px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  font-family: "Jeko";
+  font-size: 14px;
+  color: #d07f00;
+
+  .activeCookingText {
+    span {
+      color: #bac24f;
+    }
+  }
+
+  .activeCookingTime {
+    font-family: "Jeko";
+    font-size: 22px;
+    color: #9f6100;
+  }
 }

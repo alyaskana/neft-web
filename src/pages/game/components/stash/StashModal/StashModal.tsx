@@ -11,22 +11,23 @@ import {
   TModal,
   Button,
 } from "@/share/components";
-import { $stash, $activeFish } from "@/pages/game/model";
+import { $stash, $activeFish, $userRecipes } from "@/pages/game/model";
 
 import s from "./StashModal.module.scss";
 import { eatCropFx } from "@/api/games";
+import { log } from "console";
 
 type TStashModal = TModal;
 
 type TCard = {
   id: number;
-  count: number;
+  count?: number;
   image: string;
   key: string;
   name: string;
   description: string;
   price?: number;
-  growing_time?: number;
+  time?: number;
   experience?: number;
   type: string;
 };
@@ -34,6 +35,7 @@ type TCard = {
 export const StashModal: FC<TStashModal> = (props) => {
   const stash = useStore($stash);
   const activeFish = useStore($activeFish);
+  const userRecipes = useStore($userRecipes);
 
   const [activeCard, setActiveCard] = useState<TCard>(buildCards()[0]);
 
@@ -47,7 +49,7 @@ export const StashModal: FC<TStashModal> = (props) => {
     eatCropFx({ crop_id: crop.id, fish_id: activeFish.id });
   };
 
-  function buildCards() {
+  function buildCards(): TCard[] {
     const crops = stash.crops.map((crop) => {
       return {
         id: crop.id,
@@ -69,7 +71,7 @@ export const StashModal: FC<TStashModal> = (props) => {
         name: seedStock.plant.name,
         description: seedStock.plant.description,
         price: seedStock.plant.seed_price,
-        growing_time: seedStock.plant.growing_time,
+        time: seedStock.plant.growing_time,
         type: seedStock.type,
         key: `${seedStock.type}-${seedStock.id}`,
       };
@@ -98,16 +100,16 @@ export const StashModal: FC<TStashModal> = (props) => {
         key: `${mineralStock.type}-${mineralStock.id}`,
       };
     });
-    const recipeStocks = stash.recipeStocks.map((recipeStock) => {
+    const userRecipeCards = userRecipes.map((userRecipe) => {
       return {
-        id: recipeStock.id,
-        count: recipeStock.count,
-        image: recipeStock.recipe.image,
-        name: recipeStock.recipe.name,
-        description: recipeStock.recipe.description,
-        experience: recipeStock.recipe.experience,
-        type: recipeStock.type,
-        key: `${recipeStock.type}-${recipeStock.id}`,
+        id: userRecipe.id,
+        image: userRecipe.recipe.image,
+        name: userRecipe.recipe.name,
+        description: userRecipe.recipe.description,
+        experience: userRecipe.recipe.experience,
+        time: userRecipe.recipe.cooking_time,
+        type: userRecipe.type,
+        key: `${userRecipe.type}-${userRecipe.id}`,
       };
     });
 
@@ -116,7 +118,7 @@ export const StashModal: FC<TStashModal> = (props) => {
       ...seedStocks,
       ...instrumentStocks,
       ...mineralStocks,
-      ...recipeStocks,
+      ...userRecipeCards,
     ];
   }
 
@@ -125,13 +127,13 @@ export const StashModal: FC<TStashModal> = (props) => {
       <Tabs>
         <TabPanel>
           <LeftPanel>
-            {buildCards().map((Card) => (
+            {buildCards().map((card) => (
               <MiniCard
-                count={Card.count}
-                image={Card.image}
-                active={activeCard?.key == Card.key}
-                onClick={() => setActiveCard(Card)}
-                key={Card.key}
+                count={card.count}
+                image={card.image}
+                active={activeCard?.key == card.key}
+                onClick={() => setActiveCard(card)}
+                key={card.key}
               />
             ))}
           </LeftPanel>
@@ -142,8 +144,9 @@ export const StashModal: FC<TStashModal> = (props) => {
                   image={activeCard.image}
                   name={activeCard.name}
                   description={activeCard.description}
+                  experience={activeCard.experience}
                   seedPrice={activeCard.price}
-                  growingTime={activeCard.growing_time}
+                  growingTime={activeCard.time}
                 />
                 {activeCard.type == "crop" && (
                   <Button

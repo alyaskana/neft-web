@@ -12,9 +12,10 @@ import {
   TInstrument,
   TMineral,
   TRecipe,
-  TRecipeStock,
+  TUserRecipe,
   TMineralStock,
   TInstrumentStock,
+  TDish,
 } from "@/types/game";
 
 type TGameState = {
@@ -27,10 +28,11 @@ type TGameState = {
   recipes: TRecipe[];
   wallet: TWallet;
   seed_stocks: TSeedStock[];
-  recipe_stocks: TRecipeStock[];
+  user_recipes: TUserRecipe[];
   mineral_stocks: TMineralStock[];
   instrument_stocks: TInstrumentStock[];
   crops: TCrop[];
+  dishes: TDish[];
 };
 
 export const fetchCurrentStateFx = createEffect<
@@ -145,17 +147,32 @@ export const eatCropFx = createEffect<
   });
 });
 
-type TEatRecipeResponse = {
-  recipe_stocks: TRecipeStock[];
+type TEatDishResponse = {
+  dishes: TDish[];
   fishes: TFish[];
 };
 
-export const eatRecipeFx = createEffect<
-  { recipe_stock_id: number; fish_id: number },
-  AxiosResponse<TEatRecipeResponse>
+export const eatDishFx = createEffect<
+  { dish_id: number; fish_id: number },
+  AxiosResponse<TEatDishResponse>
 >(async (params) => {
-  return await fetcher.post<TEatRecipeResponse>({
-    path: "games/eat_recipe",
+  return await fetcher.post<TEatDishResponse>({
+    path: "games/eat_dish",
+    params,
+  });
+});
+
+type TCookRecipeResponse = {
+  user_recipes: TUserRecipe[];
+  crops: TCrop[];
+};
+
+export const cookRecipeFx = createEffect<
+  { user_recipe_id: number },
+  AxiosResponse<TCookRecipeResponse>
+>(async (params) => {
+  return await fetcher.post<TCookRecipeResponse>({
+    path: "games/cook_recipe",
     params,
   });
 });

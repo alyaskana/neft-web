@@ -15,7 +15,7 @@ const backendRequestFx = createEffect<TBackendRequest, void>(
   }
 );
 
-export const gameChanneRequestFx = attach({
+export const gameChannelRequestFx = attach({
   effect: backendRequestFx,
   source: $gameChannel,
   mapParams: (message: TCableMessage, channel) => ({
