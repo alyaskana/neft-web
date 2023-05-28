@@ -13,10 +13,6 @@
   border: none;
   cursor: pointer;
 
-  &:disabled {
-    opacity: 0.5;
-  }
-
   &.big {
     width: 242px;
   }

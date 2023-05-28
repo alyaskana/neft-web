@@ -76,6 +76,8 @@ export const buyInstrumentFx = createEffect<
 
 type TNewPlotResponse = {
   plots: TPlot[];
+  mineral_stocks: TMineralStock[];
+  wallet: TWallet;
 };
 
 export const newPlotFx = createEffect<void, AxiosResponse<TNewPlotResponse>>(

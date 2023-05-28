@@ -9,7 +9,7 @@ ReactModal.setAppElement("#root");
 
 export type TModal = {
   isOpen: boolean;
-  title: string;
+  title?: string;
   onAfterOpen?: () => void;
   onRequestClose?: () => void;
 };

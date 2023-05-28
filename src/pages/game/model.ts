@@ -189,6 +189,7 @@ $wallet.on(
     sellCropFx.doneData,
     buyInstrumentFx.doneData,
     sellMineralFx.doneData,
+    newPlotFx.doneData,
   ],
   (_, { data: { wallet } }) => wallet
 );
@@ -214,6 +215,7 @@ $mineralStocks.on(
     fetchCurrentStateFx.doneData,
     collectMineralFx.doneData,
     sellMineralFx.doneData,
+    newPlotFx.doneData,
   ],
   (_, { data: { mineral_stocks } }) => mineral_stocks
 );

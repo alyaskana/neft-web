@@ -1,0 +1,29 @@
+.confirmationModal {
+  max-width: 576px;
+  padding: 0 26px 26px 26px;
+  box-sizing: border-box;
+
+  .title {
+    font-family: "Jeko";
+    font-size: 28px;
+    line-height: 110%;
+    color: #935a02;
+  }
+
+  .description {
+    margin-top: 8px;
+    font-size: 16px;
+    line-height: 19px;
+    color: #935a02;
+  }
+
+  .contentWrapper {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+  }
+
+  .confirm {
+    flex: 0 240px;
+  }
+}

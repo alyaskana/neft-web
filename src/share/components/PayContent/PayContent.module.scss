@@ -1,0 +1,37 @@
+.payContent {
+  margin-top: 28px;
+
+  svg {
+    width: 24px;
+    height: 24px;
+    filter: drop-shadow(1.5px 1.5px 0px rgba(0, 0, 0, 0.25));
+  }
+}
+
+.payContentItem {
+  display: flex;
+  margin-top: 12px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.payContentValue {
+  font-family: "Jeko";
+  color: #fff;
+  margin-left: 8px;
+  padding: 5px 12px 3px 12px;
+  background: #f86d6d;
+  border-radius: 17px;
+  letter-spacing: 0.05em;
+  height: 24px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.success {
+    background: #bac24f;
+  }
+}
