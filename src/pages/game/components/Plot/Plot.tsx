@@ -20,6 +20,7 @@ import { ReactComponent as ArrowUpIcon } from "@/assets/icons/arrow-up.svg";
 import s from "./Plot.module.scss";
 import { PayContent, PayContentItem } from "@/share/components/PayContent";
 import { useStore } from "effector-react";
+import { log } from "console";
 
 type TPlotProps = {
   plot?: TPlot;
@@ -39,7 +40,7 @@ const NewPlot: FC = () => {
   const [requiredMoney, setRequiredMoney] = useState(3000);
   const [requiredLevel, setRequiredLevel] = useState(6);
   const [requiredMineral, setRequiredMineral] = useState(30);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(checkIsSuccess());
   const plots = useStore($plots);
 
   const handleClick = () => {
@@ -63,14 +64,27 @@ const NewPlot: FC = () => {
   }, [plots, activeFish, wallet, mineralStocks]);
 
   useEffect(() => {
-    if (activeFish) {
-      setIsSuccess(
+    if (checkIsSuccess()) {
+      setIsSuccess(true);
+    }
+  }, [
+    activeFish,
+    wallet,
+    mineralStocks,
+    requiredLevel,
+    requiredMoney,
+    requiredMineral,
+  ]);
+
+  function checkIsSuccess() {
+    if (activeFish && wallet && mineralStocks) {
+      return (
         activeFish.level >= requiredLevel &&
-          wallet.dsc >= requiredMoney &&
-          mineralStocks[0].count >= requiredMineral
+        wallet.dsc >= requiredMoney &&
+        mineralStocks[0].count >= requiredMineral
       );
     }
-  }, [plots, activeFish, wallet, mineralStocks]);
+  }
 
   const Content: FC = () => {
     return (

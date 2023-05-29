@@ -25,16 +25,18 @@ const Ingredient: FC<{ ingredient: TRecipePlant; crop?: TCrop }> = ({
   ingredient,
   crop,
 }) => {
+  const cropCount = crop?.count || 0;
+
   return (
     <div className={s.cardIngredient}>
       <div className={s.cardIngredientName}>{ingredient.plant.name}</div>
       <div
         className={cn(s.cardIngredientCount, {
-          [s.success]: crop?.count || 0 >= ingredient.count,
-          [s.fail]: crop?.count || 0 < ingredient.count,
+          [s.success]: cropCount >= ingredient.count,
+          [s.fail]: cropCount < ingredient.count,
         })}
       >
-        {`${crop?.count || 0}/${ingredient.count}`}
+        {`${cropCount}/${ingredient.count}`}
       </div>
     </div>
   );
