@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useStore } from "effector-react";
 
 import { Plot } from "../Plot/Plot";
@@ -33,10 +33,17 @@ const buildSpiral = (size: number): number[][] => {
 export const Land = () => {
   const plots = useStore($plots);
   const spiral = buildSpiral(10);
+  const [renderCounts, setRenderCounts] = useState(1);
 
-  useEffect(() => {
-    window.scrollTo(window.innerWidth / 2 - 240, window.innerHeight / 2 + 240);
-  }, []);
+  useLayoutEffect(() => {
+    if (renderCounts <= 2) {
+      window.scrollTo(
+        window.innerWidth / 2 - (window.innerWidth / 100) * 15,
+        window.innerHeight - (window.innerHeight / 100) * 10
+      );
+      setRenderCounts((count) => count + 1);
+    }
+  }, [plots]);
 
   if (!plots) return null;
 

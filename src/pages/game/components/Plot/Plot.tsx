@@ -78,7 +78,7 @@ const NewPlot: FC = () => {
   ]);
 
   function checkIsSuccess() {
-    if (activeFish && wallet && mineralStocks) {
+    if (activeFish && wallet && mineralStocks[0]) {
       return (
         activeFish.level >= requiredLevel &&
         wallet.dsc >= requiredMoney &&
