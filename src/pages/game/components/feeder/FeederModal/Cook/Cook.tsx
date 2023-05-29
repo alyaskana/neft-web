@@ -28,8 +28,10 @@ const ActiveCookingRecipe: FC<{ userRecipe: TUserRecipe }> = ({
       if (growSeconds <= 1) {
         clearInterval(interval);
       }
-      setGrowSeconds((growSeconds) => growSeconds - 1);
-    }, 1000);
+      setGrowSeconds((growSeconds) =>
+        growSeconds - 1 > 0 ? growSeconds - 1 : 0
+      );
+    }, 50);
 
     return () => clearInterval(interval);
   }, []);

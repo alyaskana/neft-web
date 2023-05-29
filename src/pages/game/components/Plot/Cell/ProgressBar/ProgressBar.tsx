@@ -8,22 +8,24 @@ import { secondToTimeString } from "@/utils/secondToTimeString";
 type TProgressBarProps = {
   final_grow_time: string;
   growing_time: number;
+  type: "seed" | "mineral";
 };
 
 export const ProgressBar: FC<TProgressBarProps> = ({
   final_grow_time,
   growing_time,
+  type,
 }) => {
   const defaultTimer = secondFromNow(new Date(final_grow_time));
   const [growSeconds, setGrowSeconds] = useState(defaultTimer);
-
+  const speedMultiplier = type === "seed" ? 20 : 250;
   useEffect(() => {
     const interval = setInterval(() => {
       if (growSeconds <= 1) {
         clearInterval(interval);
       }
       setGrowSeconds((growSeconds) => growSeconds - 1);
-    }, 1000);
+    }, 1000 / speedMultiplier);
 
     return () => clearInterval(interval);
   }, []);

@@ -36,7 +36,8 @@ export const Cell: FC<TCellProps> = ({ cell }) => {
       cell.land_type == "stone" &&
       cell.cell_mineral &&
       cell.cell_mineral.stage == "ready" &&
-      activeInstrumentStock
+      activeInstrumentStock &&
+      activeInstrumentStock.count > 0
     ) {
       collectMineralFx({
         cell_mineral_id: cell.cell_mineral.id,
@@ -67,12 +68,14 @@ export const Cell: FC<TCellProps> = ({ cell }) => {
         <ProgressBar
           final_grow_time={cell.growing_seed.final_grow_time}
           growing_time={cell.growing_seed.growing_time}
+          type="seed"
         />
       )}
       {cell.cell_mineral && cell.cell_mineral.stage == "recovering" && (
         <ProgressBar
           final_grow_time={cell.cell_mineral.final_recover_time}
           growing_time={cell.cell_mineral.mineral.recovery_time}
+          type="mineral"
         />
       )}
     </div>
