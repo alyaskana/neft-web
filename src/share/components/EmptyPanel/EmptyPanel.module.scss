@@ -1,6 +1,4 @@
 .emptyPanel {
-  width: 410px;
-  height: 420px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,6 +7,11 @@
   font-family: "Jeko";
   font-size: 16px;
   color: #d07f00;
+  background: #fff;
+  border-radius: 0 16px 16px;
+  padding: 12px;
+  box-sizing: border-box;
+  min-width: 432px;
 
   .emptyPanelText {
     span {

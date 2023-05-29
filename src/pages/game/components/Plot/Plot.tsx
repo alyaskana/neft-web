@@ -32,6 +32,7 @@ type TPlotProps = {
   isBorderTop: boolean;
   isBorderBottom: boolean;
 };
+
 const NewPlot: FC = () => {
   const wallet = useStore($wallet);
   const activeFish = useStore($activeFish);
@@ -84,6 +85,7 @@ const NewPlot: FC = () => {
         mineralStocks[0].count >= requiredMineral
       );
     }
+    return false;
   }
 
   const Content: FC = () => {
@@ -103,9 +105,9 @@ const NewPlot: FC = () => {
           />
           <PayContentItem
             icon={<StarIcon />}
-            currentValue={mineralStocks[0].count}
+            currentValue={mineralStocks[0]?.count || 0}
             requiredValue={requiredMineral}
-            isSuccess={mineralStocks[0].count >= requiredMineral}
+            isSuccess={(mineralStocks[0]?.count || 0) >= requiredMineral}
           />
         </PayContent>
       </div>

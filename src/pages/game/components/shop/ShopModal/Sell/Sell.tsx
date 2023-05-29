@@ -80,11 +80,7 @@ export const Sell = () => {
   }
 
   if (buildCards().length === 0) {
-    return (
-      <LeftPanel>
-        <EmptyPanel>У вас нет ресурсов для продажи</EmptyPanel>
-      </LeftPanel>
-    );
+    return <EmptyPanel>У вас нет ресурсов для продажи</EmptyPanel>;
   }
 
   return (

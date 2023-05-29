@@ -139,25 +139,14 @@ export const StashModal: FC<TStashModal> = (props) => {
           </LeftPanel>
           <RightPanel>
             {activeCard && (
-              <>
-                <Card
-                  image={activeCard.image}
-                  name={activeCard.name}
-                  description={activeCard.description}
-                  experience={activeCard.experience}
-                  seedPrice={activeCard.price}
-                  growingTime={activeCard.time}
-                />
-                {activeCard.type == "crop" && (
-                  <Button
-                    onClick={() => {
-                      heandleEat(activeCard);
-                    }}
-                  >
-                    съесть
-                  </Button>
-                )}
-              </>
+              <Card
+                image={activeCard.image}
+                name={activeCard.name}
+                description={activeCard.description}
+                experience={activeCard.experience}
+                seedPrice={activeCard.price}
+                growingTime={activeCard.time}
+              />
             )}
           </RightPanel>
         </TabPanel>

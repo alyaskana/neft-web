@@ -38,7 +38,7 @@ const ActiveCookingRecipe: FC<{ userRecipe: TUserRecipe }> = ({
 
   return (
     <>
-      <LeftPanel>
+      <EmptyPanel>
         <div className={s.activeCooking}>
           <div className={s.activeCookingText}>
             <span>{userRecipe.recipe.name}</span> сейчас в процессе
@@ -49,7 +49,7 @@ const ActiveCookingRecipe: FC<{ userRecipe: TUserRecipe }> = ({
             {secondToTimeString(growSeconds)} мин
           </div>
         </div>
-      </LeftPanel>
+      </EmptyPanel>
       <RightPanel>
         <>
           <Card
@@ -99,12 +99,10 @@ export const Cook = () => {
 
   if (userRecipes.length == 0) {
     return (
-      <LeftPanel>
-        <EmptyPanel>
-          У вас нет рецептов, которые можно приготовить. Сходите в разведку,
-          чтобы добыть рецепты.
-        </EmptyPanel>
-      </LeftPanel>
+      <EmptyPanel>
+        У вас нет рецептов, которые можно приготовить. Сходите в разведку, чтобы
+        добыть рецепты.
+      </EmptyPanel>
     );
   }
 

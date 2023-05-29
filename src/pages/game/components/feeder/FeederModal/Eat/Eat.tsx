@@ -77,11 +77,7 @@ export const Eat = () => {
   }
 
   if (buildCards().length === 0) {
-    return (
-      <LeftPanel>
-        <EmptyPanel>У вас нет еды</EmptyPanel>
-      </LeftPanel>
-    );
+    return <EmptyPanel>У вас нет еды</EmptyPanel>;
   }
 
   return (
