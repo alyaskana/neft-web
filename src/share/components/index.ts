@@ -9,3 +9,4 @@ export { MiniCard } from "./MiniCard";
 export { LeftPanel } from "./LeftPanel";
 export { RightPanel } from "./RightPanel";
 export { Card } from "./Card";
+export { LinearProgressBar } from "./LinearProgressBar";

@@ -16,6 +16,7 @@ export const Fish: FC<TFishProps> = ({ fish }) => {
       <FishModal
         fish={fish}
         isOpen={isOpen}
+        title="Моя рыбка"
         onRequestClose={() => setIsOpen(false)}
       />
     </>
