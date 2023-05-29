@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useStore } from "effector-react";
 
-import { $plants } from "@/pages/game/model";
+import { $plants, $wallet } from "@/pages/game/model";
 import { $instruments } from "@/pages/game/model";
-import { TPlant } from "@/types/game";
-import { buySeedFx } from "@/api/games";
+import { buyInstrumentFx, buySeedFx } from "@/api/games";
 
 import s from "./Buy.module.scss";
 import {
@@ -28,6 +27,7 @@ type TCard = {
 
 export const Buy = () => {
   const plants = useStore($plants);
+  const wallet = useStore($wallet);
   const instruments = useStore($instruments);
   const [activeCard, setActiveCard] = useState<TCard>(buildCards()[0]);
 
@@ -87,8 +87,9 @@ export const Buy = () => {
           onClick={() => {
             handleClick(activeCard);
           }}
+          disabled={activeCard.price > wallet.dsc}
         >
-          купить
+          Купить за {activeCard.price}
         </Button>
       </RightPanel>
     </>

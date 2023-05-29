@@ -6,6 +6,7 @@ import { cookRecipeFx } from "@/api/games";
 import {
   Button,
   Card,
+  EmptyPanel,
   LeftPanel,
   MiniCard,
   RightPanel,
@@ -88,10 +89,22 @@ export const Cook = () => {
     return activeUserRecipe.recipe.recipe_plants.some((recipePlant) => {
       return (
         recipePlant.count <=
-        crops.find((crop) => crop.plant.id == recipePlant.plant.id)!.count
+        (crops.find((crop) => crop.plant.id == recipePlant.plant.id)?.count ||
+          0)
       );
     });
   };
+
+  if (userRecipes.length == 0) {
+    return (
+      <LeftPanel>
+        <EmptyPanel>
+          У вас нет рецептов, которые можно приготовить. Сходите в разведку,
+          чтобы добыть рецепты.
+        </EmptyPanel>
+      </LeftPanel>
+    );
+  }
 
   if (cookingRecipe) {
     return <ActiveCookingRecipe userRecipe={cookingRecipe} />;

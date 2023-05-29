@@ -21,7 +21,7 @@ type TCardProps = {
   ingredients?: TRecipePlant[];
 };
 
-const Ingredient: FC<{ ingredient: TRecipePlant; crop: TCrop }> = ({
+const Ingredient: FC<{ ingredient: TRecipePlant; crop?: TCrop }> = ({
   ingredient,
   crop,
 }) => {
@@ -30,11 +30,11 @@ const Ingredient: FC<{ ingredient: TRecipePlant; crop: TCrop }> = ({
       <div className={s.cardIngredientName}>{ingredient.plant.name}</div>
       <div
         className={cn(s.cardIngredientCount, {
-          [s.success]: crop.count >= ingredient.count,
-          [s.fail]: crop.count < ingredient.count,
+          [s.success]: crop?.count || 0 >= ingredient.count,
+          [s.fail]: crop?.count || 0 < ingredient.count,
         })}
       >
-        {`${crop.count}/${ingredient.count}`}
+        {`${crop?.count || 0}/${ingredient.count}`}
       </div>
     </div>
   );
@@ -64,9 +64,9 @@ export const Card: FC<TCardProps> = ({
             <div className={s.cardIngredients}>
               <Ingredient
                 ingredient={ingredient}
-                crop={
-                  crops.find((crop) => crop.plant.id == ingredient.plant.id)!
-                }
+                crop={crops.find(
+                  (crop) => crop.plant.id == ingredient.plant.id
+                )}
               />
             </div>
           ))}

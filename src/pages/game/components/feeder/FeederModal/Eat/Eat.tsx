@@ -6,6 +6,7 @@ import { eatCropFx, eatDishFx } from "@/api/games";
 import {
   Button,
   Card,
+  EmptyPanel,
   LeftPanel,
   MiniCard,
   RightPanel,
@@ -73,6 +74,14 @@ export const Eat = () => {
     });
 
     return [...crops, ...dishes];
+  }
+
+  if (buildCards().length === 0) {
+    return (
+      <LeftPanel>
+        <EmptyPanel>У вас нет еды</EmptyPanel>
+      </LeftPanel>
+    );
   }
 
   return (

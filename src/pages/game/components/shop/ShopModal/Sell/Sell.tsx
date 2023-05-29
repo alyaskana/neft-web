@@ -7,6 +7,7 @@ import { sellCropFx, sellMineralFx } from "@/api/games";
 import {
   Button,
   Card,
+  EmptyPanel,
   LeftPanel,
   MiniCard,
   RightPanel,
@@ -78,6 +79,14 @@ export const Sell = () => {
     return [...crops, ...mineralStocks];
   }
 
+  if (buildCards().length === 0) {
+    return (
+      <LeftPanel>
+        <EmptyPanel>У вас нет ресурсов для продажи</EmptyPanel>
+      </LeftPanel>
+    );
+  }
+
   return (
     <>
       <LeftPanel>
@@ -90,7 +99,6 @@ export const Sell = () => {
             count={card.count}
           />
         ))}
-        ;
       </LeftPanel>
       <RightPanel>
         {activeCard && (
@@ -100,14 +108,13 @@ export const Sell = () => {
               image={activeCard.image}
               description={activeCard.description}
               seedPrice={activeCard.price}
-              growingTime={activeCard.experience}
             />
             <Button
               onClick={() => {
                 handleClick(activeCard);
               }}
             >
-              продать
+              Продать за {activeCard.price}
             </Button>
           </>
         )}

@@ -1,0 +1,18 @@
+.emptyPanel {
+  width: 410px;
+  height: 420px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  font-family: "Jeko";
+  font-size: 16px;
+  color: #d07f00;
+
+  .emptyPanelText {
+    span {
+      color: #bac24f;
+    }
+  }
+}
