@@ -48,9 +48,9 @@ const NewPlot: FC = () => {
 
   useEffect(() => {
     if (plots.length == 3) {
-      setRequiredMoney(1500);
-      setRequiredLevel(3);
-      setRequiredMineral(10);
+      setRequiredMoney(50);
+      setRequiredLevel(1);
+      setRequiredMineral(1);
     } else if (plots.length == 4) {
       setRequiredMoney(2000);
       setRequiredLevel(4);
