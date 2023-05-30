@@ -22,6 +22,9 @@ export type TFish = {
   created_at: string;
   updated_at: string;
   skills: TSkill[];
+  final_explore_time: string;
+  exploring_time: number;
+  explore_stage: "calm" | "exploring" | "explore_ready";
 };
 
 export type TPlant = {

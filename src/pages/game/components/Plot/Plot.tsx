@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import cn from "classnames";
 
-import { newPlotFx } from "@/api/games";
+import { exploreFx, newPlotFx } from "@/api/games";
 import {
   $wallet,
   $activeFish,
@@ -20,7 +20,6 @@ import { ReactComponent as ArrowUpIcon } from "@/assets/icons/arrow-up.svg";
 import s from "./Plot.module.scss";
 import { PayContent, PayContentItem } from "@/share/components/PayContent";
 import { useStore } from "effector-react";
-import { log } from "console";
 
 type TPlotProps = {
   plot?: TPlot;
@@ -31,6 +30,7 @@ type TPlotProps = {
   isBorderRight: boolean;
   isBorderTop: boolean;
   isBorderBottom: boolean;
+  isExplorationPlot: boolean;
 };
 
 const NewPlot: FC = () => {
@@ -137,6 +137,105 @@ const NewPlot: FC = () => {
   );
 };
 
+const ExplorationPlot: FC = () => {
+  const wallet = useStore($wallet);
+  const activeFish = useStore($activeFish);
+  const mineralStocks = useStore($mineralStocks);
+  const [isOpen, setIsOpen] = useState(false);
+  const [requiredMoney, setRequiredMoney] = useState(1500);
+  const [requiredLevel, setRequiredLevel] = useState(3);
+  const [requiredMineral, setRequiredMineral] = useState(10);
+  const [isSuccess, setIsSuccess] = useState(checkIsSuccess());
+
+  useEffect(() => {
+    setIsSuccess(checkIsSuccess());
+  }, [
+    activeFish,
+    wallet,
+    mineralStocks,
+    requiredLevel,
+    requiredMoney,
+    requiredMineral,
+  ]);
+
+  function checkIsSuccess() {
+    if (activeFish && wallet && mineralStocks[0]) {
+      return (
+        activeFish.level >= requiredLevel &&
+        wallet.dsc >= requiredMoney &&
+        mineralStocks[0].count >= requiredMineral &&
+        (activeFish.explore_stage == "calm" ||
+          activeFish.explore_stage == "explore_ready")
+      );
+    }
+    return false;
+  }
+
+  const Content: FC = () => {
+    return (
+      <div>
+        <PayContent>
+          <PayContentItem
+            icon={<CurrencyIcon />}
+            currentValue={wallet.dsc}
+            requiredValue={requiredMoney}
+            isSuccess={wallet.dsc >= requiredMoney}
+          />
+          <PayContentItem
+            icon={<ArrowUpIcon />}
+            currentValue={`${requiredLevel} lvl`}
+            isSuccess={activeFish.level >= requiredLevel}
+          />
+          <PayContentItem
+            icon={<StarIcon />}
+            currentValue={mineralStocks[0]?.count || 0}
+            requiredValue={requiredMineral}
+            isSuccess={(mineralStocks[0]?.count || 0) >= requiredMineral}
+          />
+        </PayContent>
+      </div>
+    );
+  };
+
+  return (
+    <>
+      <div onClick={() => setIsOpen(true)}>РАЗВЕДКА</div>;
+      <ConfirmationModal
+        title="Хотите отправиться в разведку?"
+        description="Ваша рыбка может отправиться изведывать завалы мусора на отдаленных территориях и попробовать отыскать там что-нибудь ценное."
+        isOpen={isOpen}
+        onRequestClose={() => setIsOpen(false)}
+        onConfirm={() => {
+          exploreFx();
+        }}
+        confirmText="Отправиться"
+        content={<Content />}
+        isSuccess={isSuccess}
+      />
+    </>
+  );
+};
+
+const PlotContent: FC<{
+  isNewPlot: boolean;
+  isExplorationPlot: boolean;
+  plot?: TPlot;
+}> = ({ isNewPlot, isExplorationPlot, plot }) => {
+  if (isNewPlot) {
+    return <NewPlot />;
+  } else if (isExplorationPlot) {
+    return <ExplorationPlot />;
+  } else {
+    return (
+      <>
+        {plot?.cells.map((cell) => (
+          <Cell cell={cell} key={cell.id} />
+        ))}
+      </>
+    );
+  }
+};
+
 export const Plot: FC<TPlotProps> = ({
   column,
   row,
@@ -146,6 +245,7 @@ export const Plot: FC<TPlotProps> = ({
   isBorderLeft,
   isBorderRight,
   isBorderTop,
+  isExplorationPlot = false,
 }) => {
   const isUnavailable = plot == undefined;
 
@@ -162,11 +262,11 @@ export const Plot: FC<TPlotProps> = ({
       })}
       style={{ gridArea: `${row} / ${column} / auto / auto` }}
     >
-      {isNewPlot ? (
-        <NewPlot />
-      ) : (
-        plot?.cells.map((cell) => <Cell cell={cell} key={cell.id} />)
-      )}
+      <PlotContent
+        isExplorationPlot={isExplorationPlot}
+        isNewPlot={isNewPlot}
+        plot={plot}
+      />
     </div>
   );
 };

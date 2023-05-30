@@ -62,6 +62,7 @@ export const Land = () => {
               column={colId + 1}
               row={rowId + 1}
               isNewPlot={plots.length + 1 === id}
+              isExplorationPlot={plots.length + 7 === id}
             />
           );
         });

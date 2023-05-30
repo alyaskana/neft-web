@@ -22,6 +22,7 @@ import {
   eatDishFx,
   cookRecipeFx,
   updateSkillsFx,
+  exploreFx,
 } from "@/api/games";
 import {
   TPlant,
@@ -41,7 +42,12 @@ import {
 } from "@/types/game";
 
 export type TMessage = {
-  type: "plantHasGrown" | "updatePlots" | "updateSeedStocks" | "updateDishes";
+  type:
+    | "plantHasGrown"
+    | "updatePlots"
+    | "updateSeedStocks"
+    | "updateDishes"
+    | "exploreReady";
   data: Record<string, unknown>;
 };
 
@@ -50,11 +56,21 @@ type TUpdatePlotsMessage = TMessage & {
     plots: TPlot[];
   };
 };
+
 type TSeedStocksMessage = TMessage & {
   data: {
     seed_stocks: TSeedStock[];
   };
 };
+
+type TExploreReadyMessage = TMessage & {
+  data: {
+    fishes: TFish[];
+    seed_stocks: TSeedStock[];
+    user_recipes: TUserRecipe[];
+  };
+};
+
 type TUpdateDishesMessage = TMessage & {
   data: {
     dishes: TDish[];
@@ -135,12 +151,18 @@ export const updateDishesFx = createEffect<
   TUpdateDishesMessage
 >((msg) => msg);
 
+export const exploreReadyFx = createEffect<
+  TExploreReadyMessage,
+  TExploreReadyMessage
+>((msg) => msg);
+
 split({
   source: messageReceived,
   match: {
     plantHasGrown: (msg) => msg.type === "plantHasGrown",
     plotsUpdated: (msg) => msg.type === "updatePlots",
     updateDishes: (msg) => msg.type === "updateDishes",
+    exploreReady: (msg) => msg.type === "exploreReady",
     updateSeedStocks: (msg) => msg.type === "updateSeedStocks",
   },
   cases: {
@@ -148,6 +170,7 @@ split({
     plotsUpdated: updatePlotsFx,
     updateSeedStocks: updateSeedStocksFx,
     updateDishes: updateDishesFx,
+    exploreReady: exploreReadyFx,
   },
 });
 
@@ -173,6 +196,8 @@ $fishes.on(
     eatCropFx.doneData,
     eatDishFx.doneData,
     updateSkillsFx.doneData,
+    exploreReadyFx.doneData,
+    exploreFx.doneData,
   ],
   (_, { data: { fishes } }) => fishes
 );
@@ -196,6 +221,7 @@ $wallet.on(
     buyInstrumentFx.doneData,
     sellMineralFx.doneData,
     newPlotFx.doneData,
+    exploreFx.doneData,
   ],
   (_, { data: { wallet } }) => wallet
 );
@@ -205,6 +231,7 @@ $seedStocks.on(
     updateSeedStocksFx.doneData,
     buySeedFx.doneData,
     plantSeedFx.doneData,
+    exploreReadyFx.doneData,
   ],
   (_, { data: { seed_stocks } }) => seed_stocks
 );
@@ -213,6 +240,7 @@ $userRecipes.on(
     fetchCurrentStateFx.doneData,
     updateDishesFx.doneData,
     cookRecipeFx.doneData,
+    exploreReadyFx.doneData,
   ],
   (_, { data: { user_recipes } }) => user_recipes
 );
@@ -222,6 +250,7 @@ $mineralStocks.on(
     collectMineralFx.doneData,
     sellMineralFx.doneData,
     newPlotFx.doneData,
+    exploreFx.doneData,
   ],
   (_, { data: { mineral_stocks } }) => mineral_stocks
 );

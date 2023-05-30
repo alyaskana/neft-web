@@ -1,15 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import { TourProvider } from "@reactour/tour";
+
 import App from "./App";
 import "./fonts.scss";
 import "./react-tabs.scss";
 import "./index.css";
-import { BrowserRouter } from "react-router-dom";
+
+const steps = [
+  {
+    selector: ".first-step",
+    content: "This is my first Step",
+  },
+];
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   // <React.StrictMode>
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <TourProvider steps={steps}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </TourProvider>
   // </React.StrictMode>
 );

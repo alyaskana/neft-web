@@ -89,6 +89,20 @@ export const newPlotFx = createEffect<void, AxiosResponse<TNewPlotResponse>>(
   }
 );
 
+type TExploreResponse = {
+  fishes: TFish[];
+  wallet: TWallet;
+  mineral_stocks: TMineralStock[];
+};
+
+export const exploreFx = createEffect<void, AxiosResponse<TExploreResponse>>(
+  async () => {
+    return await fetcher.post<TExploreResponse>({
+      path: "games/explore",
+    });
+  }
+);
+
 type TPlantSeedResponse = {
   plots: TPlot[];
   seed_stocks: TSeedStock[];
