@@ -21,6 +21,7 @@ import {
   sellMineralFx,
   eatDishFx,
   cookRecipeFx,
+  updateSkillsFx,
 } from "@/api/games";
 import {
   TPlant,
@@ -167,7 +168,12 @@ $plots.on(
   (_, { data: { plots } }) => plots
 );
 $fishes.on(
-  [fetchCurrentStateFx.doneData, eatCropFx.doneData, eatDishFx.doneData],
+  [
+    fetchCurrentStateFx.doneData,
+    eatCropFx.doneData,
+    eatDishFx.doneData,
+    updateSkillsFx.doneData,
+  ],
   (_, { data: { fishes } }) => fishes
 );
 $minerals.on(

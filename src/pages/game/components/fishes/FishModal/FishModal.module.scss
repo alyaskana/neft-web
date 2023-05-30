@@ -139,6 +139,10 @@
           display: block;
         }
       }
+
+      &.active {
+        background: #fab140;
+      }
     }
 
     .skillHint {

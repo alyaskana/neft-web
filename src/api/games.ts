@@ -16,6 +16,7 @@ import {
   TMineralStock,
   TInstrumentStock,
   TDish,
+  TSkills,
 } from "@/types/game";
 
 type TGameState = {
@@ -203,6 +204,19 @@ export const sellMineralFx = createEffect<
 >(async (params) => {
   return await fetcher.post<TSellMineralResponse>({
     path: "games/sell_mineral",
+    params,
+  });
+});
+
+type TSkillsResponse = {
+  fishes: TFish[];
+};
+export const updateSkillsFx = createEffect<
+  { skills: TSkills },
+  AxiosResponse<TSkillsResponse>
+>(async (params) => {
+  return await fetcher.post<TSkillsResponse>({
+    path: "games/update_skills",
     params,
   });
 });

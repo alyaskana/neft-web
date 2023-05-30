@@ -21,6 +21,7 @@ export type TFish = {
   is_active: boolean;
   created_at: string;
   updated_at: string;
+  skills: TSkill[];
 };
 
 export type TPlant = {
@@ -143,4 +144,21 @@ export type TDish = {
   count: number;
   stage: "cooking" | "ready";
   type: "dish";
+};
+
+export type TSkill = {
+  key: string;
+  is_active: boolean;
+};
+
+export type TSkills = {
+  skill_1?: boolean;
+  skill_2?: boolean;
+  skill_3?: boolean;
+  skill_4?: boolean;
+  skill_5?: boolean;
+  skill_6?: boolean;
+  skill_7?: boolean;
+  skill_8?: boolean;
+  skill_9?: boolean;
 };
