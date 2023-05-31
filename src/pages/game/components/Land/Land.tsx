@@ -38,8 +38,8 @@ export const Land = () => {
   useLayoutEffect(() => {
     if (renderCounts <= 2) {
       window.scrollTo(
-        window.innerWidth / 2 - (window.innerWidth / 100) * 15,
-        window.innerHeight - (window.innerHeight / 100) * 10
+        window.innerWidth / 2,
+        window.innerHeight + (window.innerHeight / 100) * 30
       );
       setRenderCounts((count) => count + 1);
     }

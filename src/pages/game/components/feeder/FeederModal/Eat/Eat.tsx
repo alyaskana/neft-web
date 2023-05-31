@@ -77,7 +77,17 @@ export const Eat = () => {
   }
 
   if (buildCards().length === 0) {
-    return <EmptyPanel>У вас нет еды</EmptyPanel>;
+    return (
+      <EmptyPanel>
+        <span style={{ color: "#BAC24F", fontSize: "24px" }}>
+          В кормушке нет еды :(
+        </span>
+        <br />
+        Вырастите растения или приготовьте
+        <br />
+        блюдо, чтобы съесть
+      </EmptyPanel>
+    );
   }
 
   return (

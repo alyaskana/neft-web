@@ -30,7 +30,7 @@ export const LoginPage = () => {
           <TextInput
             type="email"
             id="email"
-            defaultValue="ialina240200@gmail.com"
+            defaultValue="empty_user@gmail.com"
             placeholder="email"
           />
           <TextInput

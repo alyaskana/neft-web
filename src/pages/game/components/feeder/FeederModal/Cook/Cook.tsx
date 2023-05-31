@@ -38,7 +38,7 @@ const ActiveCookingRecipe: FC<{ userRecipe: TUserRecipe }> = ({
 
   return (
     <>
-      <EmptyPanel>
+      <EmptyPanel width={432}>
         <div className={s.activeCooking}>
           <div className={s.activeCookingText}>
             <span>{userRecipe.recipe.name}</span> сейчас в процессе

@@ -1,5 +1,4 @@
 .cell {
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7,16 +6,22 @@
   background-size: contain;
 
   &:hover {
-    border: 2px solid #b9760f;
+    // border: 2px solid #b9760f;
   }
 
   &.garden_bed {
     background-image: url("/src/assets/sprites/dirt.png");
+    cursor: pointer;
 
     .seed {
       bottom: 5px;
     }
   }
+
+  &.stone {
+    cursor: pointer;
+  }
+
   &.grass,
   &.stone {
     background-image: url("/src/assets/sprites/grass.png");
