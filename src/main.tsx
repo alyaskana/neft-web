@@ -11,39 +11,43 @@ import "./index.css";
 const steps = [
   {
     selector: ".step-0",
-    content: "This is my 0 Step",
+    content:
+      "Это твой участок, на нем можно выращивать водоросли и добывать ресурсы. Давай соберем первый урожай.",
   },
   {
     selector: ".step-1",
-    content: "This is my 1 Step",
+    content:
+      "Здесь у нас рынок, на котором можно продать урожай и купить что-то полезное для фермы",
   },
   {
     selector: ".step-2",
-    content: "This is my 2 Step",
+    content: "Давай продадим весь урожай, чтобы купить новых семян",
   },
   {
     selector: ".step-3",
-    content: "This is my 3 Step",
+    content: "Теперь на вырученные деньги давай купим еще семян",
   },
   {
     selector: ".step-4",
-    content: "This is my 4 Step",
+    content:
+      "Здесь можно найти содержимое сундука твоей рыбки. Давай выберем семена и посадим их на участке.",
   },
   {
     selector: ".step-5",
-    content: "This is my 5 Step",
+    content: "Посади семена и собери урожай",
   },
   {
     selector: ".step-6",
-    content: "This is my 6 Step",
+    content: "Пора посмотреть, что лежит в кормушке и покормить рыбку",
   },
   {
     selector: ".step-7",
-    content: "This is my 7 Step",
+    content:
+      "Выросшие растения при съедании дают рыбке несколько очков опыта, но осторожнее, оставь немного растений для перепродажи",
   },
   {
     selector: ".step-8",
-    content: "This is my 8 Step",
+    content: "Здесь можно посмотреть на свою рыбку и ее навыки",
   },
 ];
 
@@ -56,6 +60,21 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     showCloseButton={false}
     showNavigation={false}
     // onClickMask={() => {}}
+    styles={{
+      popover: (base) => ({
+        ...base,
+        borderRadius: 12,
+        border: "3px solid #FAB140",
+        padding: "16px 16px 14px",
+        fontFamily: "Jeko",
+        color: "#9F6100",
+        maxWidth: 270,
+        textAlign: "center",
+        lineHeight: "20px",
+        fontSize: 16,
+      }),
+      maskArea: (base) => ({ ...base, rx: 16 }),
+    }}
   >
     <BrowserRouter>
       <App />
