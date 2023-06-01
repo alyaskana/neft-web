@@ -23,6 +23,7 @@ import {
   cookRecipeFx,
   updateSkillsFx,
   exploreFx,
+  collectExploreResultsFx,
 } from "@/api/games";
 import {
   TPlant,
@@ -198,6 +199,7 @@ $fishes.on(
     updateSkillsFx.doneData,
     exploreReadyFx.doneData,
     exploreFx.doneData,
+    collectExploreResultsFx.doneData,
   ],
   (_, { data: { fishes } }) => fishes
 );
@@ -231,7 +233,7 @@ $seedStocks.on(
     updateSeedStocksFx.doneData,
     buySeedFx.doneData,
     plantSeedFx.doneData,
-    exploreReadyFx.doneData,
+    collectExploreResultsFx.doneData,
   ],
   (_, { data: { seed_stocks } }) => seed_stocks
 );
@@ -240,7 +242,7 @@ $userRecipes.on(
     fetchCurrentStateFx.doneData,
     updateDishesFx.doneData,
     cookRecipeFx.doneData,
-    exploreReadyFx.doneData,
+    collectExploreResultsFx.doneData,
   ],
   (_, { data: { user_recipes } }) => user_recipes
 );

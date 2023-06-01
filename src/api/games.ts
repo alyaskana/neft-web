@@ -103,6 +103,21 @@ export const exploreFx = createEffect<void, AxiosResponse<TExploreResponse>>(
   }
 );
 
+type TCollectExploreResults = {
+  fishes: TFish[];
+  user_recipes: TUserRecipe[];
+  seed_stocks: TSeedStock[];
+};
+
+export const collectExploreResultsFx = createEffect<
+  void,
+  AxiosResponse<TCollectExploreResults>
+>(async () => {
+  return await fetcher.post<TCollectExploreResults>({
+    path: "games/collect_explore_results",
+  });
+});
+
 type TPlantSeedResponse = {
   plots: TPlot[];
   seed_stocks: TSeedStock[];

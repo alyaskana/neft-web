@@ -10,6 +10,10 @@
   border: 2px solid transparent;
   cursor: pointer;
 
+  &.light {
+    background: #ffffff;
+  }
+
   &.active {
     border: 2px dashed #5c5c5c;
   }

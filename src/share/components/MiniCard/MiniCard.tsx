@@ -10,6 +10,7 @@ type TMiniCardProps = {
   image: string;
   count?: number;
   isBlocked?: boolean;
+  bgStyle?: "dark" | "light";
 };
 
 export const MiniCard: FC<TMiniCardProps> = ({
@@ -18,6 +19,7 @@ export const MiniCard: FC<TMiniCardProps> = ({
   active,
   onClick,
   isBlocked = false,
+  bgStyle = "dark",
 }) => {
   if (isBlocked) {
     return (
@@ -30,7 +32,13 @@ export const MiniCard: FC<TMiniCardProps> = ({
   }
 
   return (
-    <div className={cn(s.miniCard, { [s.active]: active })} onClick={onClick}>
+    <div
+      className={cn(s.miniCard, {
+        [s.active]: active,
+        [s.light]: bgStyle === "light",
+      })}
+      onClick={onClick}
+    >
       <div className={s.miniCardImage}>
         <img src={image} className={s.miniCardImage} />
       </div>
