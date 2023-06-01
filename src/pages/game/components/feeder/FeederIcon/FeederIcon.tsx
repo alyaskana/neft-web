@@ -1,6 +1,7 @@
 import { FC } from "react";
-import { ReactComponent as FeederIconSvg } from "/src/assets/icons/market.svg";
+import cn from "classnames";
 
+import { ReactComponent as FeederIconSvg } from "/src/assets/icons/market.svg";
 import s from "./FeederIcon.module.scss";
 
 type TFeederIcon = {
@@ -9,7 +10,7 @@ type TFeederIcon = {
 
 export const FeederIcon: FC<TFeederIcon> = ({ onClick }) => {
   return (
-    <div className={s.feederIcon} onClick={onClick}>
+    <div className={cn(s.feederIcon, "step-6")} onClick={onClick}>
       <FeederIconSvg />
     </div>
   );

@@ -75,7 +75,7 @@ export const Buy = () => {
           />
         ))}
       </LeftPanel>
-      <RightPanel>
+      <RightPanel className="step-3">
         <Card
           name={activeCard.name}
           image={activeCard.image}

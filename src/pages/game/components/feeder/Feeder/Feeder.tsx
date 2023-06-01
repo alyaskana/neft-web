@@ -1,9 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useStore } from "effector-react";
+
 import { FeederIcon } from "../FeederIcon/FeederIcon";
 import { FeederModal } from "../FeederModal/FeederModal";
+import { useTour } from "@reactour/tour";
+import { $activeTour, $crops } from "@/pages/game/model";
 
 export const Feeder = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const activeTour = useStore($activeTour);
+  const crops = useStore($crops);
+  const { currentStep, setCurrentStep } = useTour();
+
+  useEffect(() => {
+    if (activeTour && currentStep == 7 && crops[0]?.count == 0) {
+      setIsOpen(false);
+      setCurrentStep(8);
+    }
+  }, [activeTour, currentStep, crops]);
 
   return (
     <>

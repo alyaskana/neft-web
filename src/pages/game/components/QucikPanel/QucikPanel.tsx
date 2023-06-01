@@ -9,9 +9,11 @@ import {
   $activeInstrumentStock,
   clickSeedStock,
   clickInstrumentStock,
+  $activeTour,
 } from "@/pages/game/model";
 
 import s from "./QucikPanel.module.scss";
+import { useTour } from "@reactour/tour";
 
 type TItem = {
   id: number;
@@ -23,14 +25,20 @@ type TItem = {
 };
 
 const Item: FC<TItem> = ({ id, image, count, type, isActive, onClick }) => {
+  const activeTour = useStore($activeTour);
+  const { currentStep, setCurrentStep } = useTour();
+
   const handleClick = () => {
+    if (activeTour && currentStep == 4) {
+      setCurrentStep(5);
+    }
     onClick(id, type);
   };
 
   return (
     <div
       onClick={handleClick}
-      className={cn(s.seedItem, { [s.active]: isActive })}
+      className={cn(s.seedItem, "step-4", { [s.active]: isActive })}
       key={`${type}-${id}`}
     >
       <img src={image} width="40px" />

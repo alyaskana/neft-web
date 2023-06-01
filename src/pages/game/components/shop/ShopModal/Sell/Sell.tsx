@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useStore } from "effector-react";
 
-import { $stash } from "@/pages/game/model";
-import { TCrop } from "@/types/game";
+import { $crops, $stash } from "@/pages/game/model";
 import { sellCropFx, sellMineralFx } from "@/api/games";
 import {
   Button,
@@ -28,13 +27,20 @@ type TCard = {
   type: string;
 };
 
-export const Sell = () => {
+type TSellProps = {};
+
+export const Sell: FC<TSellProps> = () => {
   const stash = useStore($stash);
+  const crops = useStore($crops);
   const [activeCard, setActiveCard] = useState<TCard>(buildCards()[0]);
 
   useEffect(() => {
     setActiveCard(activeCard || buildCards()[0]);
   }, [stash]);
+
+  useEffect(() => {
+    setActiveCard(activeCard || buildCards()[0]);
+  }, [crops]);
 
   const handleClick = (card: TCard) => {
     if (card.type === "crop") {
@@ -96,7 +102,7 @@ export const Sell = () => {
           />
         ))}
       </LeftPanel>
-      <RightPanel>
+      <RightPanel className="step-2">
         {activeCard && (
           <>
             <Card

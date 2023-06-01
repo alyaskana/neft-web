@@ -7,6 +7,7 @@ import {
   combine,
 } from "effector";
 import { Subscription } from "@rails/actioncable";
+import { persist } from "effector-storage/local";
 
 import {
   fetchCurrentStateFx,
@@ -81,6 +82,9 @@ type TUpdateDishesMessage = TMessage & {
 
 export const $gameChannel = createStore<Subscription | null>(null);
 export const setGameChannel = createEvent<Subscription | null>();
+
+export const $activeTour = createStore<boolean>(true);
+persist({ store: $activeTour, key: "activeTour" });
 
 export const $plants = createStore<TPlant[]>([]);
 export const $resources = createStore<TResource[]>([]);

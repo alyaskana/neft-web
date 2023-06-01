@@ -1,11 +1,13 @@
 import { FC, PropsWithChildren } from "react";
+import cn from "classnames";
 
 import s from "./RightPanel.module.scss";
 
-type TRightPanelProps = {};
+type TRightPanelProps = { className?: string };
 
 export const RightPanel: FC<PropsWithChildren<TRightPanelProps>> = ({
   children,
+  className,
 }) => {
-  return <div className={s.rightPanel}>{children}</div>;
+  return <div className={cn(s.rightPanel, className)}>{children}</div>;
 };

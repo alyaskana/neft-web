@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useStore } from "effector-react";
 
-import { $stash, $activeFish } from "@/pages/game/model";
+import { $stash, $activeFish, $activeTour, $crops } from "@/pages/game/model";
 import { eatCropFx, eatDishFx } from "@/api/games";
 import {
   Button,
@@ -13,6 +13,7 @@ import {
 } from "@/share/components";
 
 import s from "./Eat.module.scss";
+import { useTour } from "@reactour/tour";
 
 type TCard = {
   id: number;
@@ -31,6 +32,14 @@ export const Eat = () => {
   const stash = useStore($stash);
   const activeFish = useStore($activeFish);
   const [activeCard, setActiveCard] = useState<TCard>(buildCards()[0]);
+  const activeTour = useStore($activeTour);
+  const { currentStep, setCurrentStep } = useTour();
+
+  useEffect(() => {
+    if (activeTour && currentStep == 6) {
+      setCurrentStep(7);
+    }
+  }, [activeTour, currentStep]);
 
   useEffect(() => {
     setActiveCard(activeCard || buildCards()[0]);
@@ -103,7 +112,7 @@ export const Eat = () => {
           />
         ))}
       </LeftPanel>
-      <RightPanel>
+      <RightPanel className="step-7">
         {activeCard && (
           <>
             <Card

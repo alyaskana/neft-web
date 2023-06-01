@@ -1,11 +1,13 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useStore } from "effector-react";
+import cn from "classnames";
 
 import { Plot } from "../Plot/Plot";
 
-import { $plots } from "@/pages/game/model";
+import { $activeTour, $crops, $plots } from "@/pages/game/model";
 
 import s from "./Land.module.scss";
+import { useTour } from "@reactour/tour";
 
 const buildSpiral = (size: number): number[][] => {
   if (size === 1) return [[1]];
@@ -32,8 +34,11 @@ const buildSpiral = (size: number): number[][] => {
 
 export const Land = () => {
   const plots = useStore($plots);
+  const activeTour = useStore($activeTour);
+  const crops = useStore($crops);
   const spiral = buildSpiral(10);
   const [renderCounts, setRenderCounts] = useState(1);
+  const { setIsOpen, currentStep, setCurrentStep } = useTour();
 
   useLayoutEffect(() => {
     if (renderCounts <= 2) {
@@ -45,10 +50,22 @@ export const Land = () => {
     }
   }, [plots]);
 
+  useLayoutEffect(() => {
+    if (activeTour) {
+      setIsOpen(true);
+    }
+  }, [activeTour]);
+
+  useEffect(() => {
+    if (activeTour && currentStep == 5 && crops[0]?.count == 3) {
+      setCurrentStep(6);
+    }
+  }, [activeTour, crops, currentStep]);
+
   if (!plots) return null;
 
   return (
-    <div className={s.land}>
+    <div className={cn(s.land)}>
       {spiral.map((rowArray, rowId) => {
         return rowArray.map((id, colId) => {
           return (
@@ -63,6 +80,7 @@ export const Land = () => {
               row={rowId + 1}
               isNewPlot={plots.length + 1 === id}
               isExplorationPlot={plots.length + 7 === id}
+              className={id == 1 ? cn("step-0", "step-5") : ""}
             />
           );
         });

@@ -1,13 +1,20 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useStore } from "effector-react";
 import cn from "classnames";
 
 import { TCell } from "@/types/game";
-import { $activeSeedStock, $activeInstrumentStock } from "@/pages/game/model";
+import {
+  $activeSeedStock,
+  $activeInstrumentStock,
+  $activeTour,
+  $crops,
+} from "@/pages/game/model";
 import { ProgressBar } from "./ProgressBar";
 
 import s from "./Cell.module.scss";
 import { collectMineralFx, harvestingFx, plantSeedFx } from "@/api/games";
+import { useTour } from "@reactour/tour";
+import { log } from "console";
 
 type TCellProps = {
   cell: TCell;
@@ -15,7 +22,16 @@ type TCellProps = {
 
 export const Cell: FC<TCellProps> = ({ cell }) => {
   const activeSeedStock = useStore($activeSeedStock);
+  const crops = useStore($crops);
+  const activeTour = useStore($activeTour);
   const activeInstrumentStock = useStore($activeInstrumentStock);
+  const { setCurrentStep, currentStep } = useTour();
+
+  useEffect(() => {
+    if (activeTour && currentStep == 0 && crops[0]?.count == 4) {
+      setCurrentStep(1);
+    }
+  }, [activeTour, crops, currentStep]);
 
   const handleClick = () => {
     if (

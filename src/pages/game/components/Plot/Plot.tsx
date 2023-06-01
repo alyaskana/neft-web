@@ -32,6 +32,7 @@ type TPlotProps = {
   isBorderTop: boolean;
   isBorderBottom: boolean;
   isExplorationPlot: boolean;
+  className?: string;
 };
 
 const NewPlot: FC = () => {
@@ -168,12 +169,13 @@ export const Plot: FC<TPlotProps> = ({
   isBorderRight,
   isBorderTop,
   isExplorationPlot = false,
+  className,
 }) => {
   const isUnavailable = plot == undefined;
 
   return (
     <div
-      className={cn(s.plot, {
+      className={cn(s.plot, className, {
         [s.unavailable]: isUnavailable,
         [s.available]: !isUnavailable,
         [s.borderBottom]: isBorderBottom,
