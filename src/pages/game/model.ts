@@ -41,7 +41,9 @@ import {
   TMineralStock,
   TRecipe,
   TDish,
+  TNotification,
 } from "@/types/game";
+import { log } from "console";
 
 export type TMessage = {
   type:
@@ -49,7 +51,8 @@ export type TMessage = {
     | "updatePlots"
     | "updateSeedStocks"
     | "updateDishes"
-    | "exploreReady";
+    | "exploreReady"
+    | "newNotification";
   data: Record<string, unknown>;
 };
 
@@ -72,6 +75,9 @@ type TExploreReadyMessage = TMessage & {
     user_recipes: TUserRecipe[];
   };
 };
+type TNotificationMessage = TMessage & {
+  data: TNotification;
+};
 
 type TUpdateDishesMessage = TMessage & {
   data: {
@@ -80,6 +86,7 @@ type TUpdateDishesMessage = TMessage & {
   };
 };
 
+export const $notifications = createStore<TNotification[]>([]);
 export const $gameChannel = createStore<Subscription | null>(null);
 export const setGameChannel = createEvent<Subscription | null>();
 
@@ -161,6 +168,16 @@ export const exploreReadyFx = createEffect<
   TExploreReadyMessage
 >((msg) => msg);
 
+export const addNotificationFx = createEffect<
+  TNotificationMessage,
+  TNotificationMessage
+>((data) => data);
+
+export const updateNotificationsFx = createEffect<
+  TNotification[],
+  TNotification[]
+>((data) => data);
+
 split({
   source: messageReceived,
   match: {
@@ -169,6 +186,7 @@ split({
     updateDishes: (msg) => msg.type === "updateDishes",
     exploreReady: (msg) => msg.type === "exploreReady",
     updateSeedStocks: (msg) => msg.type === "updateSeedStocks",
+    newNotification: (msg) => msg.type === "newNotification",
   },
   cases: {
     plantHasGrown: plantHasGrownFX,
@@ -176,14 +194,23 @@ split({
     updateSeedStocks: updateSeedStocksFx,
     updateDishes: updateDishesFx,
     exploreReady: exploreReadyFx,
+    newNotification: addNotificationFx,
   },
 });
 
 $plants.on(fetchCurrentStateFx.doneData, (_, { data: { plants } }) => plants);
-$resources.on(
-  fetchCurrentStateFx.doneData,
-  (_, { data: { resources } }) => resources
+$notifications.on(
+  addNotificationFx.doneData,
+  (allNotifications, { data: notification }) => [
+    ...allNotifications,
+    notification,
+  ]
 );
+$notifications.on(
+  updateNotificationsFx.doneData,
+  (_, notifications) => notifications
+);
+
 $plots.on(
   [
     fetchCurrentStateFx.doneData,
@@ -344,4 +371,7 @@ $activeSeedStock.watch((data) => {
 });
 $activeInstrumentStock.watch((data) => {
   console.log("$activeInstrumentStock: ", data);
+});
+$notifications.watch((data) => {
+  console.log("$notifications: ", data);
 });

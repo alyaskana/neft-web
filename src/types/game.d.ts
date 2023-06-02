@@ -165,3 +165,16 @@ export type TSkills = {
   skill_8?: boolean;
   skill_9?: boolean;
 };
+
+export type TNotification = {
+  icon:
+    | "seed"
+    | "experience"
+    | "plant"
+    | "money"
+    | "mineral"
+    | "recipe"
+    | "instrument";
+  message: string;
+  createdAt: Date;
+};

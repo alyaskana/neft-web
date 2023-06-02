@@ -4,6 +4,7 @@ import cn from "classnames";
 import { TFish } from "@/types/game";
 import { ProgressBar } from "../ProgressBar/ProgressBar";
 import s from "./FishAvatar.module.scss";
+import { Notifications } from "./Notifications";
 
 type TFishAvatar = {
   onClick: () => void;
@@ -12,11 +13,14 @@ type TFishAvatar = {
 
 export const FishAvatar: FC<TFishAvatar> = ({ fish, onClick }) => {
   return (
-    <div className={cn(s.fishAvatar, "step-8")} onClick={onClick}>
-      <img src={fish.image} />
-      <div className={s.fishProgressBar}>
-        <ProgressBar fish={fish} />
+    <>
+      <div className={cn(s.fishAvatar, "step-8")} onClick={onClick}>
+        <img src={fish.image} />
+        <div className={s.fishProgressBar}>
+          <ProgressBar fish={fish} />
+        </div>
       </div>
-    </div>
+      <Notifications />
+    </>
   );
 };
