@@ -1,7 +1,7 @@
 import { FC } from "react";
 import cn from "classnames";
 
-import { ReactComponent as FeederIconSvg } from "/src/assets/icons/market.svg";
+import { ReactComponent as FeederIconSvg } from "/src/assets/icons/feeder.svg";
 import s from "./FeederIcon.module.scss";
 
 type TFeederIcon = {
