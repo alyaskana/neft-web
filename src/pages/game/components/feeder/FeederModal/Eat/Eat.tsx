@@ -36,8 +36,8 @@ export const Eat = () => {
   const { currentStep, setCurrentStep } = useTour();
 
   useEffect(() => {
-    if (activeTour && currentStep == 6) {
-      setCurrentStep(7);
+    if (activeTour && currentStep == 10) {
+      setCurrentStep(11);
     }
   }, [activeTour, currentStep]);
 
@@ -112,7 +112,7 @@ export const Eat = () => {
           />
         ))}
       </LeftPanel>
-      <RightPanel className="step-7">
+      <RightPanel className="step-11">
         {activeCard && (
           <>
             <Card

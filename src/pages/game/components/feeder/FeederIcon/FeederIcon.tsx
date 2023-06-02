@@ -10,7 +10,7 @@ type TFeederIcon = {
 
 export const FeederIcon: FC<TFeederIcon> = ({ onClick }) => {
   return (
-    <div className={cn(s.feederIcon, "step-6")} onClick={onClick}>
+    <div className={cn(s.feederIcon, "step-10")} onClick={onClick}>
       <FeederIconSvg />
     </div>
   );

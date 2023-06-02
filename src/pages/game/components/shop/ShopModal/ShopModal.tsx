@@ -33,7 +33,7 @@ export const ShopModal: FC<TShopModal> = (props) => {
   }, [crops, activeTour, currentStep]);
 
   useEffect(() => {
-    if (activeTour && currentStep == 3 && seedStocks[0]?.count == 6) {
+    if (activeTour && currentStep == 3 && seedStocks[0]?.count == 3) {
       if (props.onRequestClose) {
         props.onRequestClose();
         setCurrentStep(4);
@@ -54,7 +54,7 @@ export const ShopModal: FC<TShopModal> = (props) => {
         </TabList>
 
         <TabPanel>
-          <Buy />
+          <Buy closePopup={props.onRequestClose} />
         </TabPanel>
         <TabPanel>
           <Sell setCurrentTab={setCurrentTab} />

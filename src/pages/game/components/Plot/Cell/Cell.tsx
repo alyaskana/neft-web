@@ -59,6 +59,10 @@ export const Cell: FC<TCellProps> = ({ cell }) => {
         cell_mineral_id: cell.cell_mineral.id,
         instrument_stock_id: activeInstrumentStock.id,
       });
+
+      if (activeTour && currentStep == 9) {
+        setCurrentStep(10);
+      }
     }
   };
 
@@ -69,6 +73,7 @@ export const Cell: FC<TCellProps> = ({ cell }) => {
       return cell.cell_mineral.mineral.image;
     }
   };
+  const isStone = cell.land_type == "stone";
 
   return (
     <div
@@ -77,6 +82,7 @@ export const Cell: FC<TCellProps> = ({ cell }) => {
         [s.stone]: cell.land_type == "stone",
         [s.grass]: cell.land_type == "grass",
         [s.garden_bed]: cell.land_type == "garden_bed",
+        ["step-9"]: isStone,
       })}
     >
       <img className={s.seed} src={cellImage()} />

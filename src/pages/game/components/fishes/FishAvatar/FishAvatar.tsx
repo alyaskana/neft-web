@@ -14,7 +14,7 @@ type TFishAvatar = {
 export const FishAvatar: FC<TFishAvatar> = ({ fish, onClick }) => {
   return (
     <>
-      <div className={cn(s.fishAvatar, "step-8")} onClick={onClick}>
+      <div className={cn(s.fishAvatar, "step-12")} onClick={onClick}>
         <img src={fish.image} />
         <div className={s.fishProgressBar}>
           <ProgressBar fish={fish} />

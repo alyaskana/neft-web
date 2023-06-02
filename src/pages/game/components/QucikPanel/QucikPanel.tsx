@@ -32,13 +32,16 @@ const Item: FC<TItem> = ({ id, image, count, type, isActive, onClick }) => {
     if (activeTour && currentStep == 4) {
       setCurrentStep(5);
     }
+    if (activeTour && currentStep == 8) {
+      setCurrentStep(9);
+    }
     onClick(id, type);
   };
 
   return (
     <div
       onClick={handleClick}
-      className={cn(s.seedItem, "step-4", { [s.active]: isActive })}
+      className={cn(s.seedItem, "step-4", "step-8", { [s.active]: isActive })}
       key={`${type}-${id}`}
     >
       <img src={image} width="40px" />

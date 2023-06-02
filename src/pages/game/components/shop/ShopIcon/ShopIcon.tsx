@@ -11,7 +11,7 @@ type TShopIcon = {
 
 export const ShopIcon: FC<TShopIcon> = ({ onClick }) => {
   return (
-    <div className={cn(s.shopIcon, cn("step-1"))} onClick={onClick}>
+    <div className={cn(s.shopIcon, cn("step-1", "step-6"))} onClick={onClick}>
       <MarketIconSvg />
     </div>
   );

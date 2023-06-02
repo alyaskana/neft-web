@@ -150,6 +150,7 @@ export const clickInstrumentStock = createEvent<TInstrumentStock | null>();
 export const plantHasGrownFX = createEffect<TMessage, void>((msg) => {
   console.log("$plantHasGrown message received :", msg);
 });
+export const updateActiveTourFx = createEffect<boolean, boolean>((msg) => msg);
 export const updatePlotsFx = createEffect<
   TUpdatePlotsMessage,
   TUpdatePlotsMessage
@@ -199,6 +200,7 @@ split({
 });
 
 $plants.on(fetchCurrentStateFx.doneData, (_, { data: { plants } }) => plants);
+$activeTour.on(updateActiveTourFx.doneData, (_, value) => value);
 $notifications.on(
   addNotificationFx.doneData,
   (allNotifications, { data: notification }) => [

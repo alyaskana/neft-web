@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useStore } from "effector-react";
+import cn from "classnames";
 
-import { $plants, $wallet } from "@/pages/game/model";
+import { $activeTour, $plants, $wallet } from "@/pages/game/model";
 import { $instruments } from "@/pages/game/model";
 import { buyInstrumentFx, buySeedFx } from "@/api/games";
 
@@ -13,6 +14,7 @@ import {
   MiniCard,
   RightPanel,
 } from "@/share/components";
+import { useTour } from "@reactour/tour";
 
 type TCard = {
   id: number;
@@ -25,18 +27,25 @@ type TCard = {
   type: string;
 };
 
-export const Buy = () => {
+export const Buy: FC<{ closePopup: () => void }> = ({ closePopup }) => {
   const plants = useStore($plants);
   const wallet = useStore($wallet);
   const instruments = useStore($instruments);
   const [activeCard, setActiveCard] = useState<TCard>(buildCards()[0]);
+  const { setCurrentStep, currentStep } = useTour();
+  const activeTour = useStore($activeTour);
 
-  const handleClick = (card: TCard) => {
+  const handleClick = async (card: TCard) => {
     if (card.type === "plant") {
       buySeedFx({ plant_id: card.id });
     }
     if (card.type === "instrument") {
-      buyInstrumentFx({ instrument_id: card.id });
+      await buyInstrumentFx({ instrument_id: card.id });
+
+      if (activeTour && currentStep == 7) {
+        setCurrentStep(8);
+        closePopup();
+      }
     }
   };
 
@@ -63,6 +72,13 @@ export const Buy = () => {
     return [...plants_cards, ...instruments_cards];
   }
 
+  useEffect(() => {
+    if (activeTour && currentStep == 7) {
+      const cards = buildCards();
+      setActiveCard(cards[cards.length - 1]);
+    }
+  }, [currentStep, activeTour]);
+
   return (
     <>
       <LeftPanel>
@@ -75,7 +91,7 @@ export const Buy = () => {
           />
         ))}
       </LeftPanel>
-      <RightPanel className="step-3">
+      <RightPanel className={cn("step-3", "step-7")}>
         <Card
           name={activeCard.name}
           image={activeCard.image}
