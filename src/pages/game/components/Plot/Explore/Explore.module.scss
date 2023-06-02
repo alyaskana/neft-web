@@ -1,2 +1,21 @@
+.exploreWrapper {
+  position: relative;
+  cursor: pointer;
+}
+
 .explore {
+  box-sizing: border-box;
+  padding: 5px 6px 4px;
+  position: absolute;
+  background: #ffefd6;
+  border: 1px solid #d07f00;
+  border-radius: 4px;
+  cursor: pointer;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Jeko";
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
 }

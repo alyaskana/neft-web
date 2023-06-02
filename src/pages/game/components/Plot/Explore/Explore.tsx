@@ -11,6 +11,8 @@ import { PayContent, PayContentItem } from "@/share/components/PayContent";
 import { ReactComponent as CurrencyIcon } from "@/assets/icons/currency.svg";
 import { ReactComponent as StarIcon } from "@/assets/icons/star.svg";
 import { ReactComponent as ArrowUpIcon } from "@/assets/icons/arrow-up.svg";
+import { ReactComponent as ExplorePlot } from "@/assets/sprites/explore_plot.svg";
+
 import { ConfirmationModal } from "@/share/components/ConfirmationModal";
 import { exploreFx } from "@/api/games";
 import { ExploreResultsModal } from "./ExploreResultsModal";
@@ -34,11 +36,12 @@ const ExploreInProgress: FC<{ fish: TFish }> = ({ fish }) => {
 
   return (
     <div className={s.explore}>
-      <div>Идет разведка</div>
-      <div>осталось: {secondToTimeString(growSeconds)} мин</div>
+      <div>Восстановление:</div>
+      <div>{secondToTimeString(growSeconds)} мин</div>
     </div>
   );
 };
+
 const ExploreReady: FC = () => {
   const [isOpenConfirm, setIsOpenConfirm] = useState(false);
 
@@ -115,17 +118,17 @@ export const Explore: FC = () => {
     );
   };
 
-  if (activeFish && activeFish.explore_stage == "exploring") {
-    return <ExploreInProgress fish={activeFish} />;
-  }
-
-  if (activeFish && activeFish.explore_stage == "explore_ready") {
-    return <ExploreReady />;
-  }
-
   return (
     <>
-      <div onClick={() => setIsOpen(true)}>РАЗВЕДКА</div>;
+      <div className={s.exploreWrapper}>
+        <ExplorePlot onClick={() => setIsOpen(true)} />
+        {activeFish && activeFish.explore_stage == "exploring" && (
+          <ExploreInProgress fish={activeFish} />
+        )}
+        {activeFish && activeFish.explore_stage == "explore_ready" && (
+          <ExploreReady />
+        )}
+      </div>
       <ConfirmationModal
         title="Хотите отправиться в разведку?"
         description="Ваша рыбка может отправиться изведывать завалы мусора на отдаленных территориях и попробовать отыскать там что-нибудь ценное."

@@ -10,6 +10,7 @@ import { ReactComponent as PlantIcon } from "@/assets/icons/plant.svg";
 import { ReactComponent as MoneyIcon } from "@/assets/icons/money.svg";
 import { ReactComponent as RecipeIcon } from "@/assets/icons/recipe.svg";
 import { ReactComponent as InstrumentIcon } from "@/assets/icons/instrument.svg";
+import { ReactComponent as MineralIcon } from "@/assets/icons/mineral.svg";
 
 type TNotificationsProps = {};
 
@@ -63,9 +64,13 @@ export const Notifications: FC<TNotificationsProps> = () => {
         if (notification.icon === "instrument") {
           icon = <InstrumentIcon />;
         }
+
+        if (notification.icon === "mineral") {
+          icon = <MineralIcon />;
+        }
         return (
           <div key={index} className={s.notification}>
-            <div>{icon}</div>
+            <div className={s.icon}>{icon}</div>
             <div className={s.text}>{notification.message}</div>
           </div>
         );
