@@ -125,6 +125,22 @@
       color: #9f6100;
     }
 
+    .gardening {
+      .skillsTreeItem.active {
+        background: #ff69a8;
+      }
+    }
+    .cleaning {
+      .skillsTreeItem.active {
+        background: #87b8c7;
+      }
+    }
+    .exploring {
+      .skillsTreeItem.active {
+        background: #ffbc55;
+      }
+    }
+
     .skillsTreeItem {
       width: 72px;
       height: 72px;
@@ -133,15 +149,19 @@
       margin-top: 10px;
       position: relative;
       cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Jeko";
+      font-size: 36px;
+      color: #ffffff;
+      padding-top: 5px;
+      box-sizing: border-box;
 
       &:hover {
         .skillHint {
           display: block;
         }
-      }
-
-      &.active {
-        background: #fab140;
       }
     }
 
