@@ -30,16 +30,16 @@ export const LoginPage = () => {
           <TextInput
             type="email"
             id="email"
-            defaultValue="empty_user@gmail.com"
-            placeholder="email"
+            // defaultValue="empty_user@gmail.com"
+            placeholder="Email"
           />
           <TextInput
             type="password"
             id="password"
-            defaultValue="12345678"
-            placeholder="password"
+            // defaultValue="12345678"
+            placeholder="Пароль"
           />
-          <Button type="submit">войти</Button>
+          <Button type="submit">Войти</Button>
         </Form>
       </ModalBlock>
     </div>

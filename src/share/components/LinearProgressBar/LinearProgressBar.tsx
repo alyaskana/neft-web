@@ -2,11 +2,16 @@ import { FC } from "react";
 
 import s from "./LinearProgressBar.module.scss";
 
-type TLinearProgressBarProps = { percent: number; backgroundColor: string };
+type TLinearProgressBarProps = {
+  percent: number;
+  backgroundColor: string;
+  label?: string;
+};
 
 export const LinearProgressBar: FC<TLinearProgressBarProps> = ({
   percent,
   backgroundColor,
+  label,
 }) => {
   return (
     <div className={s.linearProgressBar}>
@@ -18,6 +23,7 @@ export const LinearProgressBar: FC<TLinearProgressBarProps> = ({
             background: backgroundColor,
           }}
         />
+        {label && <div className={s.label}>{label}</div>}
       </div>
     </div>
   );

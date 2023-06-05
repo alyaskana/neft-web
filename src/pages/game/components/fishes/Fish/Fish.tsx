@@ -31,7 +31,7 @@ export const Fish: FC<TFishProps> = ({ fish }) => {
         fish={fish}
         isOpen={isOpenModal}
         title="Моя рыбка"
-        onRequestClose={() => setIsOpen(false)}
+        onRequestClose={() => setIsOpenModal(false)}
       />
     </>
   );

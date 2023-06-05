@@ -36,7 +36,7 @@ const ExploreInProgress: FC<{ fish: TFish }> = ({ fish }) => {
 
   return (
     <div className={s.explore}>
-      <div>Восстановление:</div>
+      <div>Разведка:</div>
       <div>{secondToTimeString(growSeconds)} мин</div>
     </div>
   );
@@ -63,7 +63,7 @@ export const Explore: FC = () => {
   const activeFish = useStore($activeFish);
   const mineralStocks = useStore($mineralStocks);
   const [isOpen, setIsOpen] = useState(false);
-  const [requiredMoney, setRequiredMoney] = useState(1500);
+  const [requiredMoney, setRequiredMoney] = useState(500);
   const [requiredLevel, setRequiredLevel] = useState(3);
   const [requiredMineral, setRequiredMineral] = useState(10);
   const [isSuccess, setIsSuccess] = useState(checkIsSuccess());

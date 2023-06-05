@@ -170,9 +170,9 @@
       position: absolute;
       padding: 8px;
       width: 124px;
-      height: 40px;
       left: -26px;
-      top: 16px;
+      top: 50%;
+      transform: translateY(-50%);
       background: #ffffff;
       border: 2px solid #fab140;
       border-radius: 8px;

@@ -48,7 +48,7 @@ export const FishModal: FC<TFishModal> = ({ fish, ...props }) => {
   };
 
   const pointsCount = () => {
-    return fish.level - Object.values(skills).filter((item) => item).length;
+    return fish.level - 1 - Object.values(skills).filter((item) => item).length;
   };
 
   return (
@@ -57,7 +57,11 @@ export const FishModal: FC<TFishModal> = ({ fish, ...props }) => {
         <div className={s.fishCard}>
           <div className={s.experience}>
             <div className={s.experienceProgress}>
-              <LinearProgressBar percent={percent} backgroundColor="#BEC563" />
+              <LinearProgressBar
+                percent={percent + 5}
+                backgroundColor="#BEC563"
+                label={`${fish.experience}/${nextLevelXp}`}
+              />
             </div>
             <div className={s.level}>{activeFish.level}</div>
           </div>
@@ -70,9 +74,10 @@ export const FishModal: FC<TFishModal> = ({ fish, ...props }) => {
               <LinearProgressBar
                 percent={
                   (100 / 3) *
-                  [skills.skill_1, skills.skill_2, skills.skill_3].filter(
-                    (item) => item
-                  ).length
+                    [skills.skill_1, skills.skill_2, skills.skill_3].filter(
+                      (item) => item
+                    ).length +
+                  5.2
                 }
                 backgroundColor="#FF69A8"
               />
@@ -82,9 +87,10 @@ export const FishModal: FC<TFishModal> = ({ fish, ...props }) => {
               <LinearProgressBar
                 percent={
                   (100 / 3) *
-                  [skills.skill_4, skills.skill_5, skills.skill_6].filter(
-                    (item) => item
-                  ).length
+                    [skills.skill_4, skills.skill_5, skills.skill_6].filter(
+                      (item) => item
+                    ).length +
+                  5.2
                 }
                 backgroundColor="#87B8C7"
               />
@@ -94,9 +100,10 @@ export const FishModal: FC<TFishModal> = ({ fish, ...props }) => {
               <LinearProgressBar
                 percent={
                   (100 / 3) *
-                  [skills.skill_7, skills.skill_8, skills.skill_9].filter(
-                    (item) => item
-                  ).length
+                    [skills.skill_7, skills.skill_8, skills.skill_9].filter(
+                      (item) => item
+                    ).length +
+                  5.2
                 }
                 backgroundColor="#FAB140"
               />
@@ -214,7 +221,12 @@ export const FishModal: FC<TFishModal> = ({ fish, ...props }) => {
               </div>
             </div>
           </div>
-          <Button onClick={() => updateSkillsFx({ skills })}>Прокачать</Button>
+          <Button
+            disabled={pointsCount() == 0}
+            onClick={() => updateSkillsFx({ skills })}
+          >
+            Прокачать
+          </Button>
         </div>
       </div>
     </Modal>

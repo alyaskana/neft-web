@@ -15,10 +15,10 @@ export const WelcomePage = () => {
           <div className={s.textContent}>
             Позже вы сможете подключить свой кошелек Web3, чтобы владеть фермой
             и всеми ее ресурсами, а пока что прототип игры доступен
-            для тестирования без вложений
+            для тестирования без привязки кошелька
           </div>
           <Button type="submit" style="big" href="/game">
-            играть
+            Играть
           </Button>
         </Form>
       </ModalBlock>
